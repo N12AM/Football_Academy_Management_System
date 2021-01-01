@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="pageStyle.css" > -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+        
+        <!-- <script src="https://kit.fontawesome.com/9de1d8df31.js" crossorigin="anonymous"></script> -->
+<style>
+    *{
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    padding:0;
+}
+ div.error{
+    margin:0;
+    padding:0;
+    padding-top:10px;
+    top:0px;
+    height:fit-content;
+    width:100%;
+    text-align:center;
+    background-color:bisque;
+    color:black;
+
+}
+.error p{
+    padding:0;
+    margin:0;
+}
+header{
+
+    font-family:'Aclonica';
+    color:white;
+    background-color:red;
+    font-size:35px;
+    text-align:center;
+    padding:45px;
+
+}
+.descrip >img{
+    margin:auto;
+     width:400px;
+         height:auto;
+}
+.menu{
+    display:flex;
+    background-color:#333;
+    width:100%;
+    text-align:center;
+    flex-direction: column;
+}
+.menu a{
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    padding:20px;  
+    padding-right:40px;
+    font-size:20px;
+}
+.menu a:hover{
+    background-color:#bbb;
+    color:black;
+}
+#ingd{
+    border: 5px double;
+    border-radius: 5px;
+    background-color: antiquewhite;
+    width:60%;
+    font-size:20px;
+}
+
+.page{
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.main{
+    flex:20%;
+    padding:0px;
+}
+.container{
+    padding-left:100px;
+
+ }
+.side{
+    flex:80%;
+    text-align: center;
+    padding-top:200px;
+}
+
+.failed{
+    display:none;
+}
+
+.page .main .descrip{
+    text-align:center;
+}
+.descrip p{
+    font-size: 25px;
+}
+.img1, .img2, .img3, .img4{
+    width:200px;
+    height:auto;
+}
+
+.procontainer{
+    padding-left: 100px;
+}
+
+.procedure{
+    margin-top:100px;
+    width:60%;
+    border:5px double;
+    border-radius: 5px;
+    background-color: antiquewhite;
+    font-size: 20px;
+
+}
+
+.procedure #proceed .ordered{
+    list-style: upper-roman inside;
+}
+
+#references a{
+    text-decoration: none;
+}
+
+.leave li a{
+    padding:15px;
+}
+.leave li a:link , .leave li a:visited{
+    color:black;
+}
+.leave li a:hover, .leave li a:active{
+    color:white;
+    background-color:#999;
+}
+
+#author{
+    text-align:center;
+}
+
+
+
+.icon{
+    padding-left:15px;
+    padding-right:15px;
+    color:black;
+}
+
+
+
+@media (max-width:400px){
+    body{
+        overflow-x: auto;
+        max-width: fit-content;
+    }
+    .main{
+        flex:100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .menu, .page{
+        flex-direction:column;
+    }
+    .descrip > img{
+        width:200px;
+    }
+    header{
+        font-size: 45px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .error{
+        overflow: hidden;
+    }
+
+    .container{
+        padding-left: 15%;
+
+    }
+    .procontainer{
+        padding-left: 15%;
+    }
+    .procedure{
+        width: 80%;
+        background-color: rgb(240, 248, 247);
+
+    }
+    
+    .side p{
+        max-width: 200px;
+    }
+    #finalImage{
+        max-height: fit-content;
+        display: block;
+    }
+    .side{
+        display: none;
+    }
+    .failed{
+        display:block;
+        color:red;
+        background-color: #333;
+    }
+    #ingd{
+        width:80%;
+        padding-left:10px;
+        background-color: rgb(240, 248, 247);
+
+        
+    }
+   .descrip>img{
+       width:50%;
+   }
+}
+
+@media screen and (max-width: 750px) and (min-width: 400px){
+    .menu{
+        overflow:hidden;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    .menu{
+        flex-direction: column;
+    }
+    .container{
+        padding-left: 10%;
+    }
+    #ingd{
+        width:90%;
+        background-color: rgb(247, 248, 231);
+    }
+    .procontainer{
+        padding-left: 10%;
+    }
+    .procedure{
+        width:90%;
+        background-color: rgb(247, 248, 231);
+    }
+
+}
+
+@media(min-width: 700px){
+    .container{
+        padding-left: 10%;
+    }
+    #ingd{
+        width:90%;
+        background-color: rgb(238, 248, 238);
+    }
+    .procontainer{
+        padding-left: 10%;
+    }
+    .procedure{
+        width:90%;
+        background-color: rgb(238, 248, 238);
+    }
+}
+</style>
+    
+    </head>
+
+    <body>
+
+        <header class="intro">
+            <p>
+                Football Academy ManageMent <span><i class="fas fa-futbol"></i></span>
+            </p> 
+        </header>
+
+
+
+
+
+
+
+
+
+<div class="page">
+    <div class="main" style="padding-top:40px;  ">
+        <div class="user" style="height:250px;">
+            <img src="Evil_ball.png" style="width:106px">
+            <span style="margin:0px ; padding:0px;">Welcome, <strong>Admin</strong></span><br>
+
+            <div class="UserIcon">
+                <a href="#" class="icon"><i class="material-icons">person</i></a>
+                <a href="#" class="icon"><i class="material-icons">email</i></a>
+                <a href="#" class="icon"><i class="material-icons">room_preferences</i></a>
+
+            </div>
+            
+        </div>
+        <div class="menu">
+            <a href="#categories"target="_blank"><span><i class="fab fa-wpforms"></i></span>Categories</a>
+            <a href="#news"target="_blank"><span><i class="fas fa-newspaper"></i></span>News</a>
+            <a href="#blog"target="_blank"><span></i></span><i class="fas fa-rss-square"></i>Forum</a>
+            <a href="#videos"target="_blank"><span><i class="fas fa-video"></i></span>Videos</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>More</a>
+        </div>
+
+
+                
+    </div>
+
+
+    
+    <div class="side">
+
+    </div>
+
+</div>
+        
+
+
+  
+
+
+
+
+
+
+
+
+    </body>
+    
+</html>
