@@ -78,11 +78,14 @@ header{
 .page{
     display:flex;
     flex-wrap:wrap;
+    background-color:rgb(255, 255, 255);
 }
 
 .main{
     flex:20%;
     padding:0px;
+    background-color:white;
+
 }
 .container{
     padding-left:100px;
@@ -91,7 +94,9 @@ header{
 .side{
     flex:80%;
     text-align: center;
-    padding-top:200px;
+    padding-top:30px;
+    background-color:rgb(255, 255, 255);
+    height:100%;
 }
 
 .failed{
@@ -148,11 +153,71 @@ header{
 
 
 
+
+
+
 .icon{
     padding-left:15px;
     padding-right:15px;
     color:black;
 }
+
+.userIcon{
+        padding-left:105px;
+        padding-top:30px;
+        font-size:20px;
+}
+
+.menuBar{
+    background-color:rgb(94, 92, 92);
+    height:100%;
+    
+}
+
+.user{
+    background-color:white;
+}
+
+.quickLookupTable, .quickLookupRows{
+    color:black;
+    background-color: bisque;
+    
+}
+
+.quickView{
+    font-size: 20px;
+    color:white;
+
+}
+.quickLookup{
+    
+    background-color:antwhiteiquewhite;
+    padding:0px 8px;
+    display: flex;
+    margin-bottom: 16px!important;
+
+}
+.quickLookup::before,.quickLookup::after{
+    box-sizing:content-box;
+
+}
+.quickView{
+    margin-left:10px;
+    width:24%;
+    float:left;
+    display:block;
+    box-sizing: inherit;
+    content:"";
+    height:150px;
+    bottom: 10;;
+}
+
+
+
+
+
+
+
 
 
 
@@ -273,7 +338,7 @@ header{
 
         <header class="intro">
             <p>
-                Football Academy ManageMent <span><i class="fas fa-futbol"></i></span>
+                Football Academy ManageMent System <span><i class="fas fa-futbol"></i></span>
             </p> 
         </header>
 
@@ -287,33 +352,87 @@ header{
 
 <div class="page">
     <div class="main" style="padding-top:40px;  ">
+
         <div class="user" style="height:250px;">
             <img src="Evil_ball.png" style="width:106px">
-            <span style="margin:0px ; padding:0px;">Welcome, <strong>Admin</strong></span><br>
+            <span style="margin:0px ; padding:0px; font-size: 20px;">Welcome, <strong>Admin</strong></span><br>
 
-            <div class="UserIcon">
+            <div class="userIcon">
                 <a href="#" class="icon"><i class="material-icons">person</i></a>
                 <a href="#" class="icon"><i class="material-icons">email</i></a>
-                <a href="#" class="icon"><i class="material-icons">room_preferences</i></a>
-
-            </div>
-            
+                <a href="#" class="icon"><i class="material-icons">login</i></a>
+            </div>    
         </div>
-        <div class="menu">
-            <a href="#categories"target="_blank"><span><i class="fab fa-wpforms"></i></span>Categories</a>
-            <a href="#news"target="_blank"><span><i class="fas fa-newspaper"></i></span>News</a>
-            <a href="#blog"target="_blank"><span></i></span><i class="fas fa-rss-square"></i>Forum</a>
-            <a href="#videos"target="_blank"><span><i class="fas fa-video"></i></span>Videos</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>More</a>
+        <div class="menuBar">
+            <div class="menu">
+            <a href="#categories"target="_blank"><span><i class="fab fa-wpforms"></i></span>Dashboard</a>
+            <a href="#news"target="_blank"><span><i class="fas fa-newspaper"></i></span>Players</a>
+            <a href="#blog"target="_blank"><span></i></span><i class="fas fa-rss-square"></i>Coaches</a>
+            <a href="#videos"target="_blank"><span><i class="fas fa-video"></i></span>Employees</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>User</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Academic</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Performance</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Tournament</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Finance</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Message</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Mail</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Inventory</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Media</a>
+            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Logout</a>
+
         </div>
 
+        </div>
+        
 
                 
     </div>
 
 
     
+
+
+    
     <div class="side">
+        
+        <div class="dashboard" style="height:50px; text-align: left; font-size:23px; padding-left: 20px;;">
+            <span class="material-icons" style="font-size: 24px;">dashboard</span>
+            <span >Admin's Dashboard</span>
+        </div>
+
+        <div class="quickLookup">
+            
+            <!-- <table class="quickLookupTable">
+                <tr >
+                    <td class="quickLookupRows">Employees</td>
+                    <td class="quickLookupRows">Coachs</td>
+                    <td class="quickLookupRows">Players</td>
+                    <td class="quickLookupRows">Updates</td>
+                </tr>   
+            </table> -->
+            
+            <div class="quickView" style="background-color:#f44336!important;">
+                <span class="material-icons" style="font-size:50px; padding-right: 130px;padding-top: 10px;">record_voice_over</span>
+                
+                <span class="emp_text">Employees</strong></span>
+            </div>
+            <div class="quickView" style="background-color:#ff9800!important;">
+                <span class="material-icons" style="font-size:50px; padding-right: 130px;padding-top: 10px;">sports_kabaddi</span>
+                <span class="emp_text">Coachs</strong></span>
+            </div>
+            <div class="quickView" style="background-color:#2196f3!important;">
+                <span class="material-icons" style="font-size:50px; padding-right: 130px;padding-top: 10px;">directions_run</span>
+                <span class="emp_text">Players</span>
+            </div>
+            <div class="quickView" style="background-color:#009680!important;">
+                <span class="material-icons" style="font-size:50px; padding-right: 130px;padding-top: 10px;">emoji_events</span>
+                <span class="emp_text">Wins</span>
+            </div>
+            
+
+
+
+        </div>
 
     </div>
 
