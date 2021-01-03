@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: #2196F3;
+}
+
+hr {
+  border: 1px solid lightgrey;
+}
+
+span.price {
+  float: right;
+  color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<h2>Tournament Form</h2>
+  <div class="col-75">
+    <div class="container">
+      <form action="/action_page.php">
+
+
+
+        <div class="row">
+          <div class="col-75">
+              <label for="pname"><span class="material-icons">bookmark</span> Tournament Name</label>
+              <input type="text" id="tname" name=“tname” placeholder="Tournament Name">
+            <div class="row">
+              <div class="col-50">
+                <label for="vanue">Vanue</label>
+                <input type="text" id="Vanue" name="vanue" placeholder="Vanue Name">
+              </div>
+              <div class="col-50">
+                <label for="sponsor">Sponsor</label>
+                <input type="text" id="sponsor" name="sponsor" placeholder=" Sponsor Name">
+              </div>
+            </div>
+              </div>
+
+
+
+
+                <br/>
+                <div class="row">
+                  <div class="col-50">
+                    <label for="pmoney"><i class="fa fa-money"></i> Prize money</label>
+                    <input type="number" id="pmoney" name="pmoney" placeholder="Cash Amount">
+                  </div>
+                  <div class="col-50">
+                    <label for="date">Game Date</label>
+                    <input type="date" id="date" name="date" placeholder="yy-mm-dd">
+                  </div>
+                </div>
+
+
+
+              <br/>
+              <div class="col-75">
+                <label for="pname"><i class="fa fa-user"></i> player 1</label>
+                <input type="text" id="player 1" name=“player 1” placeholder="Player 1 Name">
+                <div class="col-50">
+                <input type="radio" id="player 1" name="player 1" placeholder="type" required>Striker
+                <input type="radio" id="player 1" name="player 1" placeholder="type" required>Midfielder
+                <input type="radio" id="player 1" name="player 1" placeholder="type" required>Goalkeeper
+                <input type="radio" id="player 1" name="player 1" placeholder="type" required>Defender
+                <input type="radio" id="player 1" name="player 1" placeholder="type" required>Extra Player
+                  </div>
+                </div>
+                <div class="col-75">
+                  <label for="pname"><i class="fa fa-user"></i> player 2</label>
+                  <input type="text"  id=“player 2” name=“player 2” placeholder="Player 2 Name">
+                  <div class="col-50">
+                  <input type="radio" id="player 2" name="player 2" placeholder="type" required>Striker
+                  <input type="radio" id="player 2" name="player 2" placeholder="type" required>Midfielder
+                  <input type="radio" id="player 2" name="player 2" placeholder="type" required>Goalkeeper
+                  <input type="radio" id="player 2" name="player 2" placeholder="type" required>Defender
+                  <input type="radio" id="player 2" name="player 2" placeholder="type" required>Extra Player
+                </div>
+                  </div>
+                  <div class="col-75">
+                    <label for="pname"><i class="fa fa-user"></i> player 3</label>
+                    <input type="text" id=“player 3” name=“player 3” placeholder="Player 3 Name">
+                    <div class="col-50">
+                        <input type="radio" id="player 3" name="player 3" placeholder="type" required>Striker
+                        <input type="radio" id="player 3" name="player 3" placeholder="type" required>Midfielder
+                        <input type="radio" id="player 3" name="player 3" placeholder="type" required>Goalkeeper
+                        <input type="radio" id="player 3" name="player 3" placeholder="type" required>Defender
+                        <input type="radio" id="player 3" name="player 3" placeholder="type" required>Extra Player
+                      </div>
+                    </div>
+                    <div class="col-75">
+                      <label for="pname"><i class="fa fa-user"></i> player 4</label>
+                      <input type="text" id=“player 4” name=“player 4” placeholder="Player 4 Name">
+                      <div class="col-50">
+                          <input type="radio" id="player 4" name="player 4" placeholder="type" required>Striker
+                          <input type="radio" id="player 4" name="player 4" placeholder="type" required>Midfielder
+                          <input type="radio" id="player 4" name="player 4" placeholder="type" required>Goalkeeper
+                          <input type="radio" id="player 4" name="player 4" placeholder="type" required>Defender
+                          <input type="radio" id="player 4" name="player 4" placeholder="type" required>Extra Player
+                        </div>
+                      </div>
+                      <div class="col-75">
+                        <label for="pname"><i class="fa fa-user"></i> player 5</label>
+                        <input type="text" id=“player 5” name=“player 5” placeholder="Player 5 Name">
+                                <div class="col-50">
+                                    <input type="radio" id="player 5" name="player 5" placeholder="type" required>Striker
+                                    <input type="radio" id="player 5" name="player 5" placeholder="type" required>Midfielder
+                                    <input type="radio" id="player 5" name="player 5" placeholder="type" required>Goalkeeper
+                                    <input type="radio" id="player 5" name="player 5" placeholder="type" required>Defender
+                                    <input type="radio" id="player 5" name="player 5" placeholder="type" required>Extra Player
+                                  </div>
+                        </div>
+                        <div class="col-75">
+                          <label for="pname"><i class="fa fa-user"></i> player 6</label>
+                          <input type="text" id=“player 6” name=“player 6” placeholder="Player 6 Name">
+                          <div class="col-50">
+                                      <input type="radio" id="player 6" name="player 6" placeholder="type" required>Striker
+                                      <input type="radio" id="player 6" name="player 6" placeholder="type" required>Midfielder
+                                      <input type="radio" id="player 6" name="player 6" placeholder="type" required>Goalkeeper
+                                      <input type="radio" id="player 6" name="player 6" placeholder="type" required>Defender
+                                      <input type="radio" id="player 6" name="player 6" placeholder="type" required>Extra Player
+
+                                 </div>
+                          </div>
+                          <div class="col-75">
+                            <label for="pname"><i class="fa fa-user"></i> player 7</label>
+                            <input type="text" id=“player 7” name=“player 7” placeholder="Player 7 Name">
+                            <div class="col-50">
+                            <input type="radio" id="player 7" name="player 7" placeholder="type" required>Striker
+                            <input type="radio" id="player 7" name="player 7" placeholder="type" required>Midfielder
+                            <input type="radio" id="player 7" name="player 7" placeholder="type" required>Goalkeeper
+                            <input type="radio" id="player 7" name="player 7" placeholder="type" required>Defender
+                            <input type="radio" id="player 7" name="player 7" placeholder="type" required>Extra Player
+                              </div>
+                            </div>
+                            <div class="col-75">
+                              <label for="pname"><i class="fa fa-user"></i> player 8</label>
+                              <input type="text" id=“player 8” name=“player 8” placeholder="Player 8 Name">
+                              <div class="col-50">
+                                                              <input type="radio" id="player 8" name="player 8" placeholder="type" required>Striker
+                                                              <input type="radio" id="player 8" name="player 8" placeholder="type" required>Midfielder
+                                                              <input type="radio" id="player 8" name="player 8" placeholder="type" required>Goalkeeper
+                                                              <input type="radio" id="player 8" name="player 8" placeholder="type" required>Defender
+                                                              <input type="radio" id="player 8" name="player 8" placeholder="type" required>Extra Player
+                                                              </div>
+
+                              </div>
+                              <div class="col-75">
+                                <label for="pname"><i class="fa fa-user"></i> player 9</label>
+                                <input type="text" id=“player 9” name=“player 9” placeholder="Player 9 Name">
+                                <div class="col-50">
+                                <input type="radio" id="player 9" name="player 9" placeholder="type" required>Striker
+                                <input type="radio" id="player 9" name="player 9" placeholder="type" required>Midfielder
+                                <input type="radio" id="player 9" name="player 9" placeholder="type" required>Goalkeeper
+                                <input type="radio" id="player 9" name="player 9" placeholder="type" required>Defender
+                                <input type="radio" id="player 9" name="player 9" placeholder="type" required>Extra Player
+                                </div>
+
+                                </div>
+                                <div class="col-75">
+                                  <label for="pname"><i class="fa fa-user"></i> player 10</label>
+                                  <input type="text" id=“player 10” name=“player 10” placeholder="Player 10 Name">
+                                  <div class="col-50">
+                                  <input type="radio" id="player 10" name="player 10" placeholder="type" required>Striker
+                                  <input type="radio" id="player 10" name="player 10" placeholder="type" required>Midfielder
+                                  <input type="radio" id="player 10" name="player 10" placeholder="type" required>Goalkeeper
+                                  <input type="radio" id="player 10" name="player 10" placeholder="type" required>Defender
+                                  <input type="radio" id="player 10" name="player 10" placeholder="type" required>Extra Player
+                                  </div>
+
+                                  </div>
+                                  <div class="col-75">
+                                    <label for="pname"><i class="fa fa-user"></i> player 11</label>
+                                    <input type="text" id=“player 11” name=“player 11” placeholder="Player 11 Name">
+                                    <div class="col-50">
+                                <input type="radio" id="player 11" name="player 11" placeholder="type" required>Striker
+                                <input type="radio" id="player 11" name="player 11" placeholder="type" required>Midfielder
+                                <input type="radio" id="player 11" name="player 11" placeholder="type" required>Goalkeeper
+                                <input type="radio" id="player 11" name="player 11" placeholder="type" required>Defender
+                                <input type="radio" id="player 11" name="player 11" placeholder="type" required>Extra Player
+                                </div>
+
+
+                                    </div>
+                                    <div class="col-75">
+                                      <label for="pname"><i class="fa fa-user"></i> player 12</label>
+                                      <input type="text" id=“player 12” name=“player 12” placeholder="Player 12 Name">
+                                      <div class="col-50">
+                                <input type="radio" id="player 12" name="player 12" placeholder="type" required>Striker
+                                <input type="radio" id="player 12" name="player 12" placeholder="type" required>Midfielder
+                                <input type="radio" id="player 12" name="player 12" placeholder="type" required>Goalkeeper
+                                <input type="radio" id="player 12" name="player 12" placeholder="type" required>Defender
+                                <input type="radio" id="player 12" name="player 12" placeholder="type" required>Extra Player
+                                </div>
+
+                                      </div>
+                                      <div class="col-75">
+                                        <label for="pname"><i class="fa fa-user"></i> player 13</label>
+                                        <input type="text" id=“player 13” name=“player 13” placeholder="Player 13 Name">
+                                        <div class="col-50">
+                                        <input type="radio" id="player 13" name="player 13" placeholder="type" required>Striker
+                                        <input type="radio" id="player 13" name="player 13" placeholder="type" required>Midfielder
+                                        <input type="radio" id="player 13" name="player 13" placeholder="type" required>Goalkeeper
+                                        <input type="radio" id="player 13" name="player 13" placeholder="type" required>Defender
+                                        <input type="radio" id="player 13" name="player 13" placeholder="type" required>Extra Player
+                                        </div>
+                                        </div>
+                                        <div class="col-75">
+                                          <label for="pname"><i class="fa fa-user"></i> player 14</label>
+                                          <input type="text" id=“player 14” name=“player 14” placeholder="Player 14 Name">
+                                          <div class="col-50">
+                                          <input type="radio" id="player 14" name="player 14" placeholder="type" required>Striker
+                                          <input type="radio" id="player 14" name="player 14" placeholder="type" required>Midfielder
+                                          <input type="radio" id="player 14" name="player 14" placeholder="type" required>Goalkeeper
+                                          <input type="radio" id="player 14" name="player 14" placeholder="type" required>Defender
+                                          <input type="radio" id="player 14" name="player 14" placeholder="type" required>Extra Player
+                                          </div>
+                                          </div>
+                                          <div class="col-75">
+                                            <label for="pname"><i class="fa fa-user"></i> player 15</label>
+                                            <input type="text" id=“player 15” name=“player 15” placeholder="Player 15 Name">
+                                            <div class="col-50">
+                                            <input type="radio" id="player 15" name="player 15" placeholder="type" required>Striker
+                                            <input type="radio" id="player 15" name="player 15" placeholder="type" required>Midfielder
+                                            <input type="radio" id="player 15" name="player 15" placeholder="type" required>Goalkeeper
+                                            <input type="radio" id="player 15" name="player 15" placeholder="type" required>Defender
+                                            <input type="radio" id="player 15" name="player 15" placeholder="type" required>Extra Player
+                                            </div>
+                                            </div>
+                                            <div class="col-75">
+                                              <label for="pname"><i class="fa fa-user"></i> player 16</label>
+                                              <input type="text" id=“player 15” name=“player 16” placeholder="Player 16 Name">
+                                              <div class="col-50">
+                                              <input type="radio" id="player 16" name="player 16" placeholder="type" required>Striker
+                                              <input type="radio" id="player 16" name="player 16" placeholder="type" required>Midfielder
+                                              <input type="radio" id="player 16" name="player 16" placeholder="type" required>Goalkeeper
+                                              <input type="radio" id="player 16" name="player 16" placeholder="type" required>Defender
+                                              <input type="radio" id="player 16" name="player 16" placeholder="type" required>Extra Player
+                                              </div>
+                                              </div>
+
+        <input type="submit" value="submit" class="btn">
+      </form>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
