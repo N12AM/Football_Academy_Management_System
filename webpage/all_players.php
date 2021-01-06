@@ -133,7 +133,7 @@ header{
 
         <div class="user" style="height:250px;font-family:'Aclonica',Arial, Helvetica, sans-serif;">
             <img src="res/user3.png" style="width:106px">
-            <span style="margin:0px ; padding:0px; font-size: 20px;">Welcome, <strong>Admin</strong></span><br>
+            <span>Welcome, <strong>Admin</strong></span><br>
 
             <div class="userIcon">
                 <a href="#" class="icon"><i class="material-icons">person</i></a>
@@ -442,6 +442,11 @@ header{
 
 <footer style="background-color: #f44336!important; color:#fff;z-index: 1000; position:static; margin-top: 13.1%;; text-align: center;padding:10px;">
     <span>&copy Copyright 2020-2021 </span>
-</footer>    </body>
+</footer>  
+    <?php
+        $conn->close();    
+    ?>
+       
+</body>
     
 </html>

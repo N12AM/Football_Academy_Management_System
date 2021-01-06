@@ -181,7 +181,7 @@ function myFunction() {
 
         <div class="user" style="height:250px; font-family:'Aclonica',Arial, Helvetica, sans-serif;">
             <img src="res/user3.png" style="width:106px">
-            <span style="margin:0px ; padding:0px; font-size: 20px;">Welcome, <strong>Admin</strong></span><br>
+            <span >Welcome, <strong>Admin</strong></span><br>
 
             <div class="userIcon">
                 <a href="#" class="icon"><i class="material-icons">person</i></a>
@@ -465,13 +465,14 @@ function myFunction() {
                 if($conn->multi_query($sql)){
                     do{
                             if($result = $conn->store_result()){
-                                if($result->num_rows > 0){
-                                    $emerror = "* email already exixts";
-                                    return true;
+                                if($result->num_rows > 0){                                  
+                                    $conn->close();                                                                    
+                                   return true;
                                 }
                             }
                     }while($conn->next_result());
                 }
+                $conn->close();    
                 return false;
             }
 
@@ -483,7 +484,7 @@ function myFunction() {
                  if(!already_exists($email, 'email')){
                     echo"<script>console.log($email);</script>";
                     echo"<script>
-                 
+                                                
                     //   alert('done.');
                         window.location.href='http://localhost/webpage/register_player.php?fname=$fname&lname=$lname&email=$email&address=$address&city=$city&street=$street&group=$bgroup&rh=$rh&gender=$gender&date=$bdate&nat=$nationality&phone=$phone&bcn=$bcn&nid=$nid&zip=$zip';
                     // myFunction();

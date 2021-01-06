@@ -56,6 +56,10 @@
 }
 .user{
     background-color:white;
+    font-family: 'Aclonica',Arial, Helvetica, sans-serif;
+    margin:0px ;
+    padding:0px;
+    font-size: 20px;
 }
 /*------------------------- this part below styles the quick view 4 panels */
 .quickLookupTable, .quickLookupRows{
@@ -72,6 +76,7 @@
     box-sizing:content-box;
 }
 .quickView{
+    font-family: 'Aclonica',Arial, Helvetica, sans-serif;
     margin-left:10px;
     width:24%;
     float:left;
@@ -80,7 +85,7 @@
     content:"";
     height:150px;
     bottom: 10;
-    font-size: 25px;
+    font-size: 28px;
     color:white;
 }
 /*---------------------- below controls quick view 4 panel */

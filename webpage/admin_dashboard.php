@@ -30,7 +30,9 @@ header{
     top:0;
     position:sticky;
     z-index:9999;
+    
 }
+
 </style>
     
     </head>
@@ -56,7 +58,7 @@ header{
 
         <div class="user" style="height:250px;">
             <img src="../webpage/res/user3.png" style="width:106px">
-            <span style="margin:0px ; padding:0px; font-size: 20px;">Welcome, <strong>Admin</strong></span><br>
+            <span>Welcome, <strong>Admin</strong></span><br>
 
             <div class="userIcon">
                 <a href="#" class="icon"><i class="material-icons">person</i></a>
