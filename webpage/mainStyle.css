@@ -1,0 +1,235 @@
+.menu{
+    font-family:'Aclonica',Arial, Helvetica, sans-serif;
+    display:flex;
+    background-color:#333;
+    width:100%;
+    text-align:center;
+    flex-direction: column;
+}
+.menu a{
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    padding:20px;  
+    padding-right:40px;
+    font-size:20px;
+}
+.menu a:hover{
+    background-color:#bbb;
+    color:black;
+}
+.page{
+    display:flex;
+    flex-wrap:wrap;
+    background-color: #f1f1f1!important;
+}
+.main{
+    flex:20%;
+    padding-right:20px;
+    background-color: #f1f1f1!important;
+}
+.side{
+    flex:80%;
+    text-align: center;
+    padding-top:30px;
+    background-color: #f1f1f1!important;
+    height:100%;
+}
+.page .main .descrip{
+    text-align:center;
+}
+/* --------------------------this part below for user icons */
+.icon{
+    padding-left:15px;
+    padding-right:15px;
+    color:black;
+}
+.userIcon{
+    padding-left:105px;
+    padding-top:30px;
+    font-size:20px;
+}
+.menuBar{
+    background-color:#333;
+    height:100%;
+    
+}
+.user{
+    background-color:white;
+}
+/*------------------------- this part below styles the quick view 4 panels */
+.quickLookupTable, .quickLookupRows{
+    color:black;
+    background-color: bisque;  
+}
+.quickLookup{
+    background-color:antwhiteiquewhite;
+    padding:0px 8px;
+    display: flex;
+    margin-bottom: 16px!important;
+}
+.quickLookup::before,.quickLookup::after{
+    box-sizing:content-box;
+}
+.quickView{
+    margin-left:10px;
+    width:24%;
+    float:left;
+    display:block;
+    box-sizing: inherit;
+    content:"";
+    height:150px;
+    bottom: 10;
+    font-size: 25px;
+    color:white;
+}
+/*---------------------- below controls quick view 4 panel */
+.viewPorts{
+    text-align:left;
+    padding-left:25px;
+}
+
+.viewIcons{
+    text-align:left;
+    padding-left:10px;
+}
+.viewPortValue{
+    text-align: right;
+    padding-right:20px;
+    font-size: 30px;
+ 
+}
+.viewPorts a{
+    text-decoration:none;
+    color:white;
+}
+.dashboard_center{
+    left:0;
+    display:flex;
+    text-align:right;
+    width:100%;
+    padding-top: 50px;
+}
+.extra{
+    width:400px;
+    flex:30%;
+}
+/*------------------------- below controls feed table */
+.feeds{
+    flex:70%;
+    padding-left: 50px;
+    padding-right:50px;
+}
+.feedTable{
+    padding-left:150px;;
+    padding-right:50px;
+    text-align:left;
+    margin:auto ;
+    font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.feedTable th, .feedTable td{
+    border:0px solid #ddd;
+    padding:8px;
+}
+.feedTableRow{
+    width:200px;
+}
+.feedTableRow:nth-child(odd){
+    background-color:white
+}
+.feedTableRow:hover {
+    background-color: rgba(255, 0, 0, 0.247);
+}
+.feedTable th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f44336!important;;
+    color: white;
+}
+/* ------- below styles add player and Pending player*/
+.feedTableRow a{
+    text-decoration: none;
+    padding:13px;
+    background-color:#2196f3;
+    color:white;
+}
+/* ------------------------------------------below style for NEXT and PREVIOUS page buttons */
+.nextprevParent{
+    background-color:antwhiteiquewhite;
+    padding:0px 8px;
+    display: flex;
+    margin-bottom: 16px!important;
+}
+.nextprevChild{
+    font-size: 20px;
+    color:#000;
+    margin-left:10px;
+    width:50%;
+    float:left;
+    display:block;
+    box-sizing: inherit;
+    content:"";
+    height:150px;
+    bottom: 10;;
+}
+
+.prevButton{
+    text-align: left;
+    padding-right: 0px;
+    padding-top:60px;
+}
+.nextButton{
+    text-align: right;
+    padding-top:60px;
+}
+
+.nextprevChild a{
+    text-decoration:none;
+    padding:15px 35px;
+    background-color:#2196f3;
+    color:white;
+}
+
+@media (max-width:400px){
+    .main{
+        flex:100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .menu, .page{
+        flex-direction:column;
+    }
+    header{
+        font-size: 45px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .container{
+        padding-left: 15%;
+
+    } 
+    .side p{
+        max-width: 200px;
+    }
+    .side{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 750px) and (min-width: 400px){
+    .menu{
+        overflow:hidden;
+    }
+    .menu{
+        flex-direction: column;
+    }
+}
+
+@media(min-width: 700px){
+    .container{
+        padding-left: 10%;
+    }
+}
