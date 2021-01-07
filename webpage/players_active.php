@@ -4,7 +4,6 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <meta http-equiv="refresh" content="30"> -->
         <!-- <link rel="stylesheet" href="pageStyle.css" > -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="mainStyle.css">
@@ -31,7 +30,8 @@ header{
     padding:20px;
     top:0;
     position:sticky;
-    z-index:9999;
+    z-index: 9999;
+
 }
 .AddPlayerPending{
     background-color:antwhiteiquewhite;
@@ -41,9 +41,9 @@ header{
 }
 .AddPlayer{
     font-size: 20px;
-    color:white;
+    color:#000;
     margin-left:10px;
-    width:24%;
+    width:50%;
     float:left;
     display:block;
     box-sizing: inherit;
@@ -51,9 +51,39 @@ header{
     height:150px;
     bottom: 10;;
 }
+
+
 .addPlayerLink{
     text-decoration: none;
     color:black !important;
+}
+
+
+/* ---------------------------------------below style for SORT and SEARCH players */
+.sortForm{
+    padding:40px 0px;;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    text-align: left;;
+}
+.sortForm > input{
+    transform: scale(1.2);
+    padding:5px 15px;
+    background-color: #009680!important;
+    color: white;
+    font-weight: bold;
+    font-size:16px;
+}
+
+.searchPlayer{
+    text-align:right;
+    padding-right: 40px;
+}
+.searchForm{
+    padding-top:60px;
+}
+.searchForm > input{
+    transform: scale(1.3);
 }
 @media (max-width:400px){
     body{
@@ -66,12 +96,18 @@ header{
         padding-right: 0;
     }
 }
+
 @media screen and (max-width: 750px) and (min-width: 400px){
     body{
         overflow-x: hidden;
     }
 }
 
+@media(min-width: 700px){
+    .container{
+        padding-left: 10%;
+    }
+}
 </style>
     
     </head>
@@ -95,7 +131,7 @@ header{
 <div class="page">
     <div class="main" style="padding-top:40px;  ">
 
-        <div class="user" style="height:250px;">
+        <div class="user" style="height:250px;font-family:'Aclonica',Arial, Helvetica, sans-serif;">
             <img src="res/user3.png" style="width:106px">
             <span>Welcome, <strong>Admin</strong></span><br>
 
@@ -144,27 +180,19 @@ header{
 
 
 
-        <!-- <?php
-                include '..\database_connect.php';
 
-                $empCount = array(0,0,0,0);
-                $i = 0;
-
-                $playerCount = 0;
-                if(! $conn->connect_error){
-                    
-                    
-                    $sqle = "SELECT id FROM `player`;";
-
-                    $result = $conn->query($sqle);
-                    if($result->num_rows > 0){
-                        $playerCount = $result->num_rows;
-                    }
-
-
-                    // }
-                }
-            ?> -->
+        <!-- this is the quick look up panel -->
+        <div class="quickLookup">
+            
+            <!-- <table class="quickLookupTable">
+                <tr >
+                    <td class="quickLookupRows">Employees</td>
+                    <td class="quickLookupRows">Coachs</td>
+                    <td class="quickLookupRows">Players</td>
+                    <td class="quickLookupRows">Updates</td>
+                </tr>   
+            </table> -->
+            
 
             <?php
                 include '..\database_connect.php';
@@ -185,6 +213,11 @@ header{
                     $sqle .=    "SELECT *
                                 FROM player
                                 WHERE DATE(regDate) = curdate();";
+                            
+                    $sqle .=    "SELECT id, CONCAT(fname, ' ',lname) AS `full_name`,
+                                             timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age , position, prestatus
+                                FROM player
+                                WHERE prestatus = 'y';";
 
                     
                 
@@ -193,9 +226,10 @@ header{
                                 if($result = $conn->store_result()){
                                     if($result->num_rows > 0){
                                         $pCount[$i] = $result->num_rows;
-                                        $i++;
                                     }
+                                    $i++;
                                 }
+                                
                         }while($conn->next_result());
                     }
 
@@ -204,66 +238,65 @@ header{
 
 
 
-
-
-
-
-
-        <!-- this is the quick look up panel -->
-        <div class="quickLookup">
-            
-            <!-- <table class="quickLookupTable">
-                <tr >
-                    <td class="quickLookupRows">Employees</td>
-                    <td class="quickLookupRows">Coachs</td>
-                    <td class="quickLookupRows">Players</td>
-                    <td class="quickLookupRows">Updates</td>
-                </tr>   
-            </table> -->
-            
-            <div class="quickView" style="background-color:#f44336!important;">
+            <div class="quickView qv1" style="background-color:#f44336!important;">
                 
                 
                 <div class="viewIcons">
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">layers</span>
                 </div>
-
-                <div class="viewPorts"><a href="/webpage/players_total.php"><span class="emp_text"">Total</strong></span> </a></div>
-                <div class="viewPortValue"> <span>          <?php
+                
+                <div class="viewPorts">
+                    <a href="http://localhost/webpage/players_total.php" class="viewPortLink">
+                        <span class="emp_text">Total</strong></span>
+                    </a>
+                </div>
+                <div class="viewPortValue"> <span>
+                                                            <?php
                                                                 echo $pCount[0]; 
                                                             ?>
                                             </span>
                 </div>
             </div>
-            <div class="quickView" style="background-color:#ff9800!important;">
+            <div class="quickView qv2" style="background-color:#ff9800!important;">
                 <div class="viewIcons">
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">reduce_capacity</span>
 
                 </div>
                 
-                <div class="viewPorts"><a href="http://localhost/webpage/players_active.php"><span class="emp_text">Active</strong></span></a></div>
-                <div class="viewPortValue"> <span>          <?php
+                <div class="viewPorts">
+                    <a href="http://localhost/webpage/players_active.php" class="viewPortLink">
+                        <span class="emp_text">Active</strong></span></div>
+                    </a>
+                    
+                <div class="viewPortValue"> <span>
+                                                            <?php
                                                                 echo $pCount[1]; 
                                                             ?>
-                                            </span>
+                    </span>
                 </div>
 
             </div>
-            <div class="quickView" style="background-color:#2196f3!important;">
+            <div class="quickView qv3" style="background-color:#2196f3!important;">
                 <div class="viewIcons">
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">assignment_late</span>
                 </div>
                 
-                <div class="viewPorts"><a href="http://localhost/webpage/players_pending.php"><span class="emp_text">Pending</span></a></div>
+                <div class="viewPorts">
+                    <a href="http://localhost/webpage/players_pending.php"class="viewPortLink">
+                        <span class="emp_text">Pending</span></div>
+                    </a>
                 <div class="viewPortValue"> <span>0</span></div>
 
             </div>
-            <div class="quickView" style="background-color:#009680!important;">
+            <div class="quickView qv4" style="background-color:#009680!important;">
                 <div class="viewIcons">
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">new_releases</span>
                 </div>
                 
-                <div class="viewPorts"><a href="http://localhost/webpage/players_new.php"><span class="emp_text">New Admitted</span></a></div>
+                <div class="viewPorts">
+                    <a href="http://localhost/webpage/players_new.php" class="viewPortLink">
+                        <span class="emp_text">New Admitted</span></div>
+                    </a>
                 <div class="viewPortValue"> <span>
                                                             <?php
                                                                 echo $pCount[2]; 
@@ -272,7 +305,8 @@ header{
                 </div>
 
             </div>
-            
+
+
         </div>
 
             <!-- + REMEMBER THE FEEDS WILL UPDATE 
@@ -286,111 +320,184 @@ header{
 
         <div class="AddPlayerPending">
             <div class="AddPlayer" >
-                <a href="http://localhost/webpage/player_registration.php" class="addPlayerLink">
-                    <span class="material-icons" style="font-size:60px;">person_add</span>
-                    <br>
-                    <span>Add&nbsp;Player</span>
-                </a>
+  
+                <form action="#" method="post" class="sortForm">
+                    <input type="radio" value="id" name="sort" id="sort" checked="checked">ID
+                    <input type="radio" value="fname" name="sort" id="sort">fname
+                    <input type="radio" value="lname" name="sort" id="sort">lname
+                    <input type="radio" value="bgrh" name="sort" id="sort">blood&nbsp;group<br><br>
+                    <input type="submit" value="Sort" name="sort" id="sort">
+                </form>
+
             </div>
-            <div class="AddPlayer" >
-                <a href="#" class="addPlayerLink"> 
-                    <span class="material-icons" style="font-size:60px;">cached</span>
-                    <br>
-                    <span>Review&nbsp;Pending</span>
-                </a>
+            <div class="AddPlayer searchPlayer" >
+     
+                <form action="#" method="post" class="searchForm">
+                    <input type="text" placeholder="search player here" name="sort" id="sort">
+                    <input type="submit" value="Sort" name="sort" id="sort">
+                </form>
+                    
+
             </div>
  
 
         </div>
 
 
-        <div class="feeds">
-            <div style="text-align: left; font-size: 20px; padding-bottom:10px;">
-                <span>Top Players</span>
+        <div class="feeds" >
+            <div style="text-align: center; font-size: 20px; padding-bottom:10px; padding-right:0px; ">
+                <span>Results found: </span>
+                <span><?php echo $pCount[3]?></span>
             </div>
             <table class="feedTable">
-                <tr class="feedTableRow">
+                <tr class="feedTableRow style="width:100%;">
                    <th>picture</th>
-                   <th>Player Name</th>
-                    <th>age</th>
-                    <th>position</th>
-                    <th>Recent Tournament</th>
+                   <th>ID</th>
+                   <th>Name</th>
+                    <th>Age</th>
+                    <th>Last Coach</th>
+                    <th>Member type</th>
+                    <th>More</th>
+                    <th>int</th>
 
                 </tr>
-                <tr class="feedTableRow">
+
+                <?php
+                $preText = ""; $p = 0;
+                    //    if($result = $conn->store_result())
+                        while($row = $result->fetch_assoc()){
+
+                            if($row['prestatus'] == 'n')
+                                $preText = "No";
+
+                            else if($row['prestatus'] == 'y')
+                                $preText = "Yes";
+                            else 
+                                $preText = 'No';
+
+                            echo '<tr class="feedTableRow">
+                    
+                                    <td><img src="res/user4.png" style="width:100px;"></td>
+                                    <td>' .$row['id']. '</td>
+                                    <td>'.$row['full_name'].'</td>
+                                    <td>'.$row['age'].'</td>
+                                    <td>'.$row['position'].'</td>
+                                    <td>'.$preText.'</td>
+                                    <td><a href="http://webpage/player_profile.php?id='.$row['id'].'"><span>View Profile</span></a></td>
+                                    <td>'.$p.'</td>
+                                 </tr>';
+                            $p++;
+                        }
+
+                ?>
+                <!-- <tr class="feedTableRow">
                     
                     <td><img src="res/user4.png" style="width:100px;"></td>
+                    <td>35</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
-                </tr>
-                <tr class="feedTableRow">
+                    <td><a href="#"><span>View Profile</span></a></td>
+                </tr> -->
+                <!-- <tr class="feedTableRow">
                     <td><img src="res/user5.png" style="width:100px;"></td>
+                    <td>36</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
                     <td><img src="res/user6.png" style="width:100px;"></td>
+                    <td>37</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
                     <td><img src="res/user7.png" style="width:100px;"></td>
+                    <td>38</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
                     <td><img src="res/user8.png" style="width:100px;"></td>
+                    <td>39</td>
                     <td>pName</td>
-                    <td>35</td>
+                    <td>40</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
                     <td><img src="res/user9.png" style="width:100px;"></td>
+                    <td>41</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
                     <td><img src="res/user4.png" style="width:100px;"></td>
+                    <td>42</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
                     <td><img src="res/user5.png" style="width:100px;"></td>
+                    <td>43</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
                     <td><img src="res/user6.png" style="width:100px;"></td>
+                    <td>44</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td>
                 </tr>
                 <tr class="feedTableRow">
-                    <td><img src="res/  user7.png" style="width:100px;"></td>
+                    <td><img src="res/user7.png" style="width:100px;"></td>
+                    <td>45</td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
                     <td>BT league</td>
+                    <td><a href="#"><span>View Profile</span></a></td> -->
                 </tr>
             </table>
         </div>
+        
+        <div class="nextprevParent">
+            <div class="nextprevChild">
+                <div class="prevButton">
+                    <a href="#">previous</a>
+                </div>
+            </div>
+            <div class="nextprevChild">
+                <div class="nextButton">
+                    <a href="next">next</a>
+                </div>
+            </div>
 
+
+        </div>
 
 
 
@@ -411,13 +518,11 @@ header{
 
 <footer style="background-color: #f44336!important; color:#fff;z-index: 1000; position:static; margin-top: 13.1%;; text-align: center;padding:10px;">
     <span>&copy Copyright 2020-2021 </span>
-</footer> 
-    
+</footer>  
     <?php
         $conn->close();    
     ?>
        
-
 </body>
     
 </html>

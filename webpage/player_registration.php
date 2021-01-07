@@ -485,7 +485,7 @@ function myFunction() {
                     echo"<script>console.log($email);</script>";
                     echo"<script>
                                                 
-                    //   alert('done.');
+                       alert('done.');
                         window.location.href='http://localhost/webpage/register_player.php?fname=$fname&lname=$lname&email=$email&address=$address&city=$city&street=$street&group=$bgroup&rh=$rh&gender=$gender&date=$bdate&nat=$nationality&phone=$phone&bcn=$bcn&nid=$nid&zip=$zip';
                     // myFunction();
                     </script>";

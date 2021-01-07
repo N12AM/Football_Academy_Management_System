@@ -245,7 +245,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="#" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_total.php" class="viewPortLink">
                         <span class="emp_text">Total</strong></span>
                     </a>
                 </div>
@@ -263,7 +263,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="#" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_active.php" class="viewPortLink">
                         <span class="emp_text">Active</strong></span></div>
                     </a>
                     
@@ -281,7 +281,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="#"class="viewPortLink">
+                    <a href="http://localhost/webpage/players_pending.php"class="viewPortLink">
                         <span class="emp_text">Pending</span></div>
                     </a>
                 <div class="viewPortValue"> <span>0</span></div>
@@ -293,7 +293,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="#" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_new.php" class="viewPortLink">
                         <span class="emp_text">New Admitted</span></div>
                     </a>
                 <div class="viewPortValue"> <span>
@@ -304,16 +304,6 @@ header{
                 </div>
 
             </div>
-         
-            
-
-
-
-
-
-
-
-
 
 
         </div>
@@ -337,9 +327,7 @@ header{
                     <input type="radio" value="bgrh" name="sort" id="sort">blood&nbsp;group<br><br>
                     <input type="submit" value="Sort" name="sort" id="sort">
                 </form>
-                    
-                    
-             
+
             </div>
             <div class="AddPlayer searchPlayer" >
      
@@ -355,7 +343,7 @@ header{
         </div>
 
 
-        <div class="feeds" style="height:1300px;">
+        <div class="feeds">
             <div style="text-align: center; font-size: 20px; padding-bottom:10px; padding-right:0px; ">
                 <span>Results found: </span>
                 <span><?php echo $pCount[3]?></span>
@@ -366,7 +354,7 @@ header{
                    <th>ID</th>
                    <th>Name</th>
                     <th>Age</th>
-                    <th>Member type</th>
+                    <th>Last Coach</th>
                     <th>Member type</th>
                     <th>More</th>
                     <th>int</th>
@@ -379,10 +367,12 @@ header{
                         while($row = $result->fetch_assoc()){
 
                             if($row['prestatus'] == 'n')
-                                $preText = "past";
+                                $preText = "No";
 
                             else if($row['prestatus'] == 'y')
-                                $preText = "present";
+                                $preText = "Yes";
+                            else 
+                                $preText = 'No';
 
                             echo '<tr class="feedTableRow">
                     
