@@ -202,22 +202,30 @@ header{
 
                 if(! $conn->connect_error){
                     
+                    $offset_value = 0;
+                    $page = 0;
                     
-                    $sqle =     "SELECT id 
+                    if($_GET['page']){
+                        $page = $_GET['page'];
+                        $offset_value = ($page * 10);
+                    }
+                    
+                    $sqle =     "SELECT COUNT(*) AS `total`
                                 FROM `player`;";
 
-                    $sqle .=    "SELECT id
+                    $sqle .=    "SELECT COUNT(*) AS `total`
                                 FROM `player`
                                 WHERE prestatus = 'y';";
 
-                    $sqle .=    "SELECT *
+                    $sqle .=    "SELECT COUNT(*) AS `total`
                                 FROM player
                                 WHERE DATE(regDate) = curdate();";
                             
                     $sqle .=    "SELECT id, CONCAT(fname, ' ',lname) AS `full_name`,
                                              timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age , position, prestatus
                                 FROM player
-                                WHERE prestatus = 'y';";
+                                WHERE prestatus = 'y'
+                                LIMIT 10 OFFSET $offset_value;";
 
                     
                 
@@ -225,7 +233,11 @@ header{
                         do{
                                 if($result = $conn->store_result()){
                                     if($result->num_rows > 0){
-                                        $pCount[$i] = $result->num_rows;
+                                         // $pCount[$i] = $result->num_rows;
+                                        if($i < 3){
+                                            $res = $result->fetch_assoc();
+                                            $pCount[$i] = $res['total'];
+                                        }
                                     }
                                     $i++;
                                 }
@@ -246,7 +258,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_total.php" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_total.php?page=0" class="viewPortLink">
                         <span class="emp_text">Total</strong></span>
                     </a>
                 </div>
@@ -264,7 +276,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_active.php" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_active.php?page=0" class="viewPortLink">
                         <span class="emp_text">Active</strong></span></div>
                     </a>
                     
@@ -282,7 +294,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_pending.php"class="viewPortLink">
+                    <a href="http://localhost/webpage/players_pending.php?page=0"class="viewPortLink">
                         <span class="emp_text">Pending</span></div>
                     </a>
                 <div class="viewPortValue"> <span>0</span></div>
@@ -294,7 +306,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_new.php" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_new.php?page=0" class="viewPortLink">
                         <span class="emp_text">New Admitted</span></div>
                     </a>
                 <div class="viewPortValue"> <span>
@@ -347,7 +359,7 @@ header{
         <div class="feeds" >
             <div style="text-align: center; font-size: 20px; padding-bottom:10px; padding-right:0px; ">
                 <span>Results found: </span>
-                <span><?php echo $pCount[3]?></span>
+                <span><?php echo $pCount[1]?></span>
             </div>
             <table class="feedTable">
                 <tr class="feedTableRow style="width:100%;">
@@ -366,7 +378,7 @@ header{
                 $preText = ""; $p = 0;
                     //    if($result = $conn->store_result())
                         while($row = $result->fetch_assoc()){
-
+                            $p++;
                             if($row['prestatus'] == 'n')
                                 $preText = "No";
 
@@ -386,7 +398,7 @@ header{
                                     <td><a href="http://webpage/player_profile.php?id='.$row['id'].'"><span>View Profile</span></a></td>
                                     <td>'.$p.'</td>
                                  </tr>';
-                            $p++;
+                            
                         }
 
                 ?>
@@ -485,16 +497,57 @@ header{
         </div>
         
         <div class="nextprevParent">
-            <div class="nextprevChild">
-                <div class="prevButton">
-                    <a href="#">previous</a>
+
+
+                <?php
+
+
+                    $total_printed = 0;
+                    $prev_page = 0;
+                    $next_page = 0;
+                    
+                    if($page >= 0){
+                        $already_printed = $page * 10;
+                        $total_printed = $already_printed + $p;
+                    }
+                    $go_to_next_page = false;
+                    if($pCount[1] > $total_printed){
+                        $go_to_next_page = true;
+                        $next_page = $page +1;
+                    }
+                    
+                    $go_to_previous_page = false;
+                    if($total_printed > 10){
+                        $go_to_previous_page = true;
+                        $prev_page = $page - 1;
+                    }
+                    echo'<script>console.log('.$p.'); </script>'
+                ?>
+
+
+
+
+
+                <div class="nextprevChild">
+                    <div class="prevButton">
+                        <?php
+                        
+                            if($go_to_previous_page)
+                            echo '
+                                <a href="http://localhost/webpage/players_active.php?page='.$prev_page.'">Previous Page</a>';
+                        ?>
+                    </div>
                 </div>
-            </div>
-            <div class="nextprevChild">
-                <div class="nextButton">
-                    <a href="next">next</a>
+                <div class="nextprevChild">
+                    <div class="nextButton">
+                        <?php
+                        
+                            if($go_to_next_page)
+                            echo '
+                                <a href="http://localhost/webpage/players_active.php?page='.$next_page.'">Next Page</a>';
+                        ?>
+                    </div>
                 </div>
-            </div>
 
 
         </div>
@@ -516,7 +569,7 @@ header{
 
 
 
-<footer style="background-color: #f44336!important; color:#fff;z-index: 1000; position:static; margin-top: 13.1%;; text-align: center;padding:10px;">
+<footer style="background-color: #f44336!important; color:#fff;z-index: 1000; position:relative; margin-top: 13.1%;; text-align: center;padding:10px;">
     <span>&copy Copyright 2020-2021 </span>
 </footer>  
     <?php

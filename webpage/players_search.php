@@ -73,6 +73,7 @@ header{
     color: white;
     font-weight: bold;
     font-size:16px;
+    border-style: none;
 }
 
 .searchPlayer{
@@ -175,7 +176,7 @@ header{
         
         <div class="dashboard" style="height:50px; text-align: left; font-size:23px; padding-left: 20px;;">
             <span class="material-icons" style="font-size: 24px;">dashboard</span>
-            <span style="font-family:'Aclonica',Arial, Helvetica, sans-serif;">Players</span>
+            <span style="font-family:'Aclonica',Arial, Helvetica, sans-serif;">Search Players</span>
         </div>
 
 
@@ -201,121 +202,179 @@ header{
                 $i = 0;
 
                 if(! $conn->connect_error){
-                    
+                    $order_by = "id";
+                    $order_type = "asc";
+
+
+                    $search = "";
+                    $search_type="";
                     $offset_value = 0;
                     $page = 0;
                     
-                    if($_GET['page']){
-                        $page = $_GET['page'];
-                        $offset_value = ($page * 10);
-                    }
-                    
-                    $sqle =     "SELECT COUNT(*) AS `total`
-                                FROM `player`;";
+                    echo '<script>console.log("1"); </script>';
 
-                    $sqle .=    "SELECT COUNT(*) AS `total`
-                                FROM `player`
-                                WHERE prestatus = 'y';";
+                    if(isset($_POST['search']) || isset($_GET['search'])){
+                        echo '<script>console.log("2"); </script>';
 
-                    $sqle .=    "SELECT COUNT(*) AS `total`
-                                FROM player
-                                WHERE DATE(regDate) = curdate();";
+                        $search = "";
+                        $search_type="all";
+
+                        if(isset($_POST['search']))
+                            $search = $_POST['search'];
+                        else if(isset($_GET['search']))
+                            $search = $_GET['search'];
+
+                            $search = trim($search);
+                            $search = htmlspecialchars($search);
+
+                        if(isset($_POST['query']) || isset($_GET['query'])){
+
+                            if(isset($_POST['query']))
+                                $search_type = $_POST['query'];
                             
-                    $sqle .=    "SELECT id, CONCAT(fname, ' ',lname) AS `full_name`,
-                                             timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age , position, prestatus
-                                FROM player
-                                LIMIT 10 OFFSET $offset_value;";
+                            else if(isset($_GET['query']))
+                                $search_type = $_GET['query'];
+                            
+                                echo '<script>console.log("'.$search_type.'"); </script>';
+                                echo '<script>console.log("'.$search.'"); </script>';
+
+
+                        }
+
+    
+                        if(isset($_POST['sort']) || isset($_GET['sort'])){
+                            if(isset($_POST['sort']))
+                                $order_by = $_POST['sort'];
+                            
+                            else if(isset($_GET['sort']))
+                                $order_by = $_GET['sort'];
+
+                        }
+                        if(isset($_POST['ascDesc']) || isset($_GET['ascDesc'])){
+                            
+                            if(isset($_POST['ascDesc']))
+                                $order_type = $_POST['ascDesc'];
+                            
+                            else if(isset($_GET['ascDesc']))
+                                $order_type = $_GET['ascDesc'];
+                        }
+
+                        if(isset($_GET['page'])){
+                            $page = $_GET['page'];
+                            $offset_value = ($page * 10);
+                        }
+                        
+                        // if (!$mysqli->query("DROP VIEW IF EXISTS player_name") ||
+                        //      !$mysqli->query("CREATE VIEW player_name AS
+                        //                         SELECT id, CONCAT(fname, ' ',lname) AS full_name, timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age, position, prestatus
+                        //                         FROM player;")) {
+                        //     echo "VIEW creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
+                        // }
+
+                        $sqle =    "SELECT COUNT(*) AS `total`
+                                    FROM player_name
+                                    WHERE full_name like '%$search%';";
+    
+                        // $sqle .=    "SELECT COUNT(*) AS `total`
+                        //             FROM player
+                        //             WHERE DATE(regDate) = curdate();";
+                                
+                        // $sqle .=    "SELECT id, CONCAT(fname, ' ',lname) AS `full_name`,
+                        //                          timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age , position, prestatus
+                        //             FROM player
+                        //             LIMIT 10 OFFSET $offset_value;";
+    
+                        
+                        if($order_by == 'id' && $order_type == 'asc'){
+                            $sqle .=   "SELECT *
+                                        FROM player_name
+                                        WHERE full_name like '%$search%'
+                                        ORDER BY id ASC
+                                        LIMIT 10 OFFSET $offset_value;";
+                        }        
+                        else if($order_by == 'id' && $order_type == 'desc'){
+                            $sqle .=   "SELECT *
+                                        FROM player_name
+                                        WHERE full_name like '%$search%'
+                                        ORDER BY id DESC
+                                        LIMIT 10 OFFSET $offset_value;";
+                        }        
+                        else if($order_by == 'name' && $order_type == 'asc'){
+                            $sqle .=   "SELECT *
+                                        FROM player_name
+                                        WHERE full_name like '%$search%'
+                                        ORDER BY `full_name` ASC
+                                        LIMIT 10 OFFSET $offset_value;";
+                        }        
+                        else if($order_by == 'name' && $order_type == 'desc'){
+                            $sqle .=   "SELECT *
+                                        FROM player_name
+                                        WHERE full_name like '%$search%'
+                                        ORDER BY `full_name` DESC
+                                        LIMIT 10 OFFSET $offset_value;";
+                        }        
+                        else if($order_by == 'age' && $order_type == 'asc'){
+                            $sqle .=   "SELECT *
+                                        FROM player_name
+                                        WHERE full_name like '%$search%'
+                                        ORDER BY age ASC
+                                        LIMIT 10 OFFSET $offset_value;";
+                        }        
+                        else if($order_by == 'age' && $order_type == 'desc'){
+                            $sqle .=   "SELECT *
+                                        FROM player_name
+                                        WHERE full_name like '%$search%'
+                                        ORDER BY age DESC
+                                        LIMIT 10 OFFSET $offset_value;";
+                        }        
+                        
+                    
+                        if($conn->multi_query($sqle)){
+                            do{
+                                    if($result = $conn->store_result()){
+                                        
+                                        echo '<script>console.log("'.$i.'"); </script>';
+
+                                        if($result->num_rows > 0){
+                                            // $pCount[$i] = $result->num_rows;
+                                            if($i == 0){
+                                                $res = $result->fetch_assoc();
+                                                $pCount[$i] = $res['total'];
+                                                echo '<script>console.log("'.$pCount[$i].'"); </script>';
+                                            }
+                                        }
+                                        $i++;
+                                    }
+                                    
+                            }while($conn->next_result());
+                        }
+
+
+
+
+
+
+
+
+
+    
+                    }
+
+
+
+
+
+
 
                     
-                
-                    if($conn->multi_query($sqle)){
-                        do{
-                                if($result = $conn->store_result()){
-                                    if($result->num_rows > 0){
-                                        // $pCount[$i] = $result->num_rows;
-                                        if($i < 3){
-                                            $res = $result->fetch_assoc();
-                                            $pCount[$i] = $res['total'];
-                                        }
-                                    }
-                                    $i++;
-                                }
-                                
-                        }while($conn->next_result());
-                    }
+                   
 
                 }
             ?>
 
 
 
-            <div class="quickView qv1" style="background-color:#f44336!important;">
-                
-                
-                <div class="viewIcons">
-                    <span class="material-icons" style="font-size:50px;padding-top: 10px;">layers</span>
-                </div>
-                
-                <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_total.php?page=0" class="viewPortLink">
-                        <span class="emp_text">Total</strong></span>
-                    </a>
-                </div>
-                <div class="viewPortValue"> <span>
-                                                            <?php
-                                                                echo $pCount[0]; 
-                                                            ?>
-                                            </span>
-                </div>
-            </div>
-            <div class="quickView qv2" style="background-color:#ff9800!important;">
-                <div class="viewIcons">
-                    <span class="material-icons" style="font-size:50px;padding-top: 10px;">reduce_capacity</span>
 
-                </div>
-                
-                <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_active.php?page=0" class="viewPortLink">
-                        <span class="emp_text">Active</strong></span></div>
-                    </a>
-                    
-                <div class="viewPortValue"> <span>
-                                                            <?php
-                                                                echo $pCount[1]; 
-                                                            ?>
-                    </span>
-                </div>
-
-            </div>
-            <div class="quickView qv3" style="background-color:#2196f3!important;">
-                <div class="viewIcons">
-                    <span class="material-icons" style="font-size:50px;padding-top: 10px;">assignment_late</span>
-                </div>
-                
-                <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_pending.php?page=0"class="viewPortLink">
-                        <span class="emp_text">Pending</span></div>
-                    </a>
-                <div class="viewPortValue"> <span>0</span></div>
-
-            </div>
-            <div class="quickView qv4" style="background-color:#009680!important;">
-                <div class="viewIcons">
-                    <span class="material-icons" style="font-size:50px;padding-top: 10px;">new_releases</span>
-                </div>
-                
-                <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_new.php?page=0" class="viewPortLink">
-                        <span class="emp_text">New Admitted</span></div>
-                    </a>
-                <div class="viewPortValue"> <span>
-                                                            <?php
-                                                                echo $pCount[2]; 
-                                                            ?>
-                                            </span>
-                </div>
-
-            </div>
 
 
         </div>
@@ -332,23 +391,30 @@ header{
         <div class="AddPlayerPending">
             <div class="AddPlayer" >
   
-                <form action="#" method="post" class="sortForm">
-                    <input type="radio" value="id" name="sort" id="sort" checked="checked">ID
-                    <input type="radio" value="fname" name="sort" id="sort">fname
-                    <input type="radio" value="lname" name="sort" id="sort">lname
-                    <input type="radio" value="bgrh" name="sort" id="sort">blood&nbsp;group<br><br>
-                    <input type="submit" value="Sort" name="sort" id="sort">
+            <?php echo '
+                <form action="http://localhost/webpage/players_search.php?query='.$search_type.'&search='.$search.'" method="POST" class="sortForm">'; ?>
+                    <input type="radio" value="id" name="sort" id="sort" <?php if($order_by=='id') echo 'checked'?>>ID
+                    <input type="radio" value="name" name="sort" id="sort" <?php if($order_by=='name') echo 'checked'?>>Name
+                    <input type="radio" value="age" name="sort" id="sort" <?php if($order_by=='age') echo 'checked'?>>Age
+
+                    <br><br>
+                    <input type="radio" value="asc" name="ascDesc" id="ascDesc" <?php if($order_type=='asc') echo 'checked'?>>ascending
+                    <input type="radio" value="desc" name="ascDesc" id="ascDesc"<?php if($order_type=='desc') echo 'checked'?>>descending
+                    <input type="submit" value="Sort" id="sort" style="margin-left:5%;">
+                    
                 </form>
+            
 
             </div>
             <div class="AddPlayer searchPlayer" >
      
-                <form action="#" method="post" class="searchForm">
-                    <input type="text" placeholder="search player here" name="sort" id="sort">
-                    <input type="submit" value="Sort" name="sort" id="sort">
-                </form>
-                    
-
+            <?php echo '
+                <form action="http://localhost/webpage/players_search.php?query='.$search_type.'" method="post" class="searchForm">
+                    <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; ">
+                    <input type="submit" value="Search"  id="search" style="width:10%; padding:8px;">
+                </form> 
+                ';
+                ?>  
             </div>
  
 
@@ -376,6 +442,7 @@ header{
                 <?php
                 $preText = ""; $p = 0;
                     //    if($result = $conn->store_result())
+                    if(isset($_POST['search']) || isset($_GET['search']))
                         while($row = $result->fetch_assoc()){
 
                             // if($p == 10)
@@ -506,7 +573,7 @@ header{
                 $total_printed = 0;
                 $prev_page = 0;
                 $next_page = 0;
-                
+
                 if($page >= 0){
                     $already_printed = $page * 10;
                     $total_printed = $already_printed + $p;
@@ -534,7 +601,7 @@ header{
                 
                 if($go_to_previous_page)
                  echo '
-                    <a href="http://localhost/webpage/players_total.php?page='.$prev_page.'">Previous Page</a>';
+                    <a href="http://localhost/webpage/players_search.php?query='.$search_type.'&search='.$search.'&sort='.$order_by.'&ascDesc='.$order_type.'&page='.$prev_page.'">Previous Page</a>';
                 ?>
                 </div>
             </div>
@@ -544,7 +611,7 @@ header{
                 
                 if($go_to_next_page)
                  echo '
-                    <a href="http://localhost/webpage/players_total.php?page='.$next_page.'">Next Page</a>';
+                    <a href="http://localhost/webpage/players_search.php?query='.$search_type.'&search='.$search.'&sort='.$order_by.'&ascDesc='.$order_type.'&page='.$next_page.'">Next Page</a>';
                 ?>
                 </div>
             </div>

@@ -228,7 +228,7 @@ header{
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">layers</span>
                 </div>
 
-                <div class="viewPorts"><a href="/webpage/players_total.php"><span class="emp_text"">Total</strong></span> </a></div>
+                <div class="viewPorts"><a href="/webpage/players_total.php?page=0"><span class="emp_text"">Total</strong></span> </a></div>
                 <div class="viewPortValue"> <span>          <?php
                                                                 echo $pCount[0]; 
                                                             ?>
@@ -241,7 +241,7 @@ header{
 
                 </div>
                 
-                <div class="viewPorts"><a href="http://localhost/webpage/players_active.php"><span class="emp_text">Active</strong></span></a></div>
+                <div class="viewPorts"><a href="http://localhost/webpage/players_active.php?page=0"><span class="emp_text">Active</strong></span></a></div>
                 <div class="viewPortValue"> <span>          <?php
                                                                 echo $pCount[1]; 
                                                             ?>
@@ -254,7 +254,7 @@ header{
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">assignment_late</span>
                 </div>
                 
-                <div class="viewPorts"><a href="http://localhost/webpage/players_pending.php"><span class="emp_text">Pending</span></a></div>
+                <div class="viewPorts"><a href="http://localhost/webpage/players_pending.php?page=0"><span class="emp_text">Pending</span></a></div>
                 <div class="viewPortValue"> <span>0</span></div>
 
             </div>
@@ -263,7 +263,7 @@ header{
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">new_releases</span>
                 </div>
                 
-                <div class="viewPorts"><a href="http://localhost/webpage/players_new.php"><span class="emp_text">New Admitted</span></a></div>
+                <div class="viewPorts"><a href="http://localhost/webpage/players_new.php?page=0"><span class="emp_text">New Admitted</span></a></div>
                 <div class="viewPortValue"> <span>
                                                             <?php
                                                                 echo $pCount[2]; 

@@ -202,29 +202,22 @@ header{
 
                 if(! $conn->connect_error){
                     
-                    $offset_value = 0;
-                    $page = 0;
                     
-                    if($_GET['page']){
-                        $page = $_GET['page'];
-                        $offset_value = ($page * 10);
-                    }
-                    
-                    $sqle =     "SELECT COUNT(*) AS `total`
+                    $sqle =     "SELECT id 
                                 FROM `player`;";
 
-                    $sqle .=    "SELECT COUNT(*) AS `total`
+                    $sqle .=    "SELECT id
                                 FROM `player`
                                 WHERE prestatus = 'y';";
 
-                    $sqle .=    "SELECT COUNT(*) AS `total`
+                    $sqle .=    "SELECT *
                                 FROM player
                                 WHERE DATE(regDate) = curdate();";
                             
                     $sqle .=    "SELECT id, CONCAT(fname, ' ',lname) AS `full_name`,
                                              timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age , position, prestatus
                                 FROM player
-                                LIMIT 10 OFFSET $offset_value;";
+                                WHERE prestatus = 'y';";
 
                     
                 
@@ -232,11 +225,7 @@ header{
                         do{
                                 if($result = $conn->store_result()){
                                     if($result->num_rows > 0){
-                                        // $pCount[$i] = $result->num_rows;
-                                        if($i < 3){
-                                            $res = $result->fetch_assoc();
-                                            $pCount[$i] = $res['total'];
-                                        }
+                                        $pCount[$i] = $result->num_rows;
                                     }
                                     $i++;
                                 }
@@ -257,7 +246,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_total.php?page=0" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_total.php" class="viewPortLink">
                         <span class="emp_text">Total</strong></span>
                     </a>
                 </div>
@@ -275,7 +264,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_active.php?page=0" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_active.php" class="viewPortLink">
                         <span class="emp_text">Active</strong></span></div>
                     </a>
                     
@@ -293,7 +282,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_pending.php?page=0"class="viewPortLink">
+                    <a href="http://localhost/webpage/players_pending.php"class="viewPortLink">
                         <span class="emp_text">Pending</span></div>
                     </a>
                 <div class="viewPortValue"> <span>0</span></div>
@@ -305,7 +294,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_new.php?page=0" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_new.php" class="viewPortLink">
                         <span class="emp_text">New Admitted</span></div>
                     </a>
                 <div class="viewPortValue"> <span>
@@ -355,10 +344,10 @@ header{
         </div>
 
 
-        <div class="feeds">
+        <div class="feeds" >
             <div style="text-align: center; font-size: 20px; padding-bottom:10px; padding-right:0px; ">
                 <span>Results found: </span>
-                <span><?php echo $pCount[0]?></span>
+                <span><?php echo $pCount[3]?></span>
             </div>
             <table class="feedTable">
                 <tr class="feedTableRow style="width:100%;">
@@ -367,7 +356,7 @@ header{
                    <th>Name</th>
                     <th>Age</th>
                     <th>Last Coach</th>
-                    <th>Member type</th>    
+                    <th>Member type</th>
                     <th>More</th>
                     <th>int</th>
 
@@ -378,8 +367,6 @@ header{
                     //    if($result = $conn->store_result())
                         while($row = $result->fetch_assoc()){
 
-                            // if($p == 10)
-                            //     break;
                             if($row['prestatus'] == 'n')
                                 $preText = "No";
 
@@ -498,54 +485,14 @@ header{
         </div>
         
         <div class="nextprevParent">
-
-
-            <?php
-
-
-                $total_printed = 0;
-                $prev_page = 0;
-                $next_page = 0;
-                
-                if($page >= 0){
-                    $already_printed = $page * 10;
-                    $total_printed = $already_printed + $p;
-                }
-                $go_to_next_page = false;
-                if($pCount[0] > $total_printed){
-                    $go_to_next_page = true;
-                    $next_page = $page +1;
-                }
-                
-                $go_to_previous_page = false;
-                if($total_printed > 10){
-                    $go_to_previous_page = true;
-                    $prev_page = $page - 1;
-                }
-            ?>
-
-
-
-
-
             <div class="nextprevChild">
                 <div class="prevButton">
-                <?php
-                
-                if($go_to_previous_page)
-                 echo '
-                    <a href="http://localhost/webpage/players_total.php?page='.$prev_page.'">Previous Page</a>';
-                ?>
+                    <a href="#">previous</a>
                 </div>
             </div>
             <div class="nextprevChild">
                 <div class="nextButton">
-                <?php
-                
-                if($go_to_next_page)
-                 echo '
-                    <a href="http://localhost/webpage/players_total.php?page='.$next_page.'">Next Page</a>';
-                ?>
+                    <a href="next">next</a>
                 </div>
             </div>
 
