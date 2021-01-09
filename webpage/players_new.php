@@ -73,6 +73,7 @@ header{
     color: white;
     font-weight: bold;
     font-size:16px;
+    border-style: none;
 }
 
 .searchPlayer{
@@ -201,31 +202,106 @@ header{
                 $i = 0;
 
                 if(! $conn->connect_error){
-                    
-                    
-                    $sqle =     "SELECT id 
-                                FROM `player`;";
 
-                    $sqle .=    "SELECT id
-                                FROM `player`
-                                WHERE prestatus = 'y';";
 
-                    $sqle .=    "SELECT *
-                                FROM player
-                                WHERE DATE(regDate) = curdate();";
+                    $order_by = "id";
+                    $order_type = "asc";
+
+                    if(isset($_POST['sort'])){
+                        $order_by = $_POST['sort'];
+                    }
+                    if(isset($_POST['ascDesc'])){
+                        $order_type = $_POST['ascDesc'];
+                    }
+
+                    if(isset($_GET['sort'])){
+                        $order_by = $_GET['sort'];
+                    }
+                    if(isset($_GET['ascDesc'])){
+                        $order_type = $_GET['ascDesc'];
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                    
+                    $offset_value = 0;
+                    $page = 0;
+                    
+                    if(isset($_GET['page'])){
+                        $page = $_GET['page'];
+                        $offset_value = ($page * 10);
+                    }
+                    
+                    include 'player-tables-views.php';
+
                             
-                    $sqle .=    "SELECT id, CONCAT(fname, ' ',lname) AS `full_name`,
-                                             timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age , position, prestatus
-                                FROM player
-                                WHERE prestatus = 'y';";
+                    // $sqle .=    "SELECT id, CONCAT(fname, ' ',lname) AS `full_name`,
+                    //                          timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age , position, prestatus
+                    //             FROM player
+                    //             LIMIT 10 OFFSET $offset_value;";
 
+                    
+                    if($order_by == 'id' && $order_type == 'asc'){
+                        $sqle .=   "SELECT *
+                                    FROM playerbasicinfo
+                                    WHERE DATE(regDate) = curdate()
+                                    ORDER BY id ASC
+                                    LIMIT 10 OFFSET $offset_value;";
+                    }        
+                    else if($order_by == 'id' && $order_type == 'desc'){
+                        $sqle .=   "SELECT *
+                                    FROM playerbasicinfo
+                                    WHERE DATE(regDate) = curdate()
+                                    ORDER BY id DESC
+                                    LIMIT 10 OFFSET $offset_value;";
+                    }        
+                    else if($order_by == 'name' && $order_type == 'asc'){
+                        $sqle .=   "SELECT *
+                                    FROM playerbasicinfo
+                                    WHERE DATE(regDate) = curdate()
+                                    ORDER BY `full_name` ASC
+                                    LIMIT 10 OFFSET $offset_value;";
+                    }        
+                    else if($order_by == 'name' && $order_type == 'desc'){
+                        $sqle .=   "SELECT *
+                                    FROM playerbasicinfo
+                                    WHERE DATE(regDate) = curdate()
+                                    ORDER BY `full_name` DESC
+                                    LIMIT 10 OFFSET $offset_value;";
+                    }        
+                    else if($order_by == 'age' && $order_type == 'asc'){
+                        $sqle .=   "SELECT *
+                                    FROM playerbasicinfo
+                                    WHERE DATE(regDate) = curdate()
+                                    ORDER BY age ASC
+                                    LIMIT 10 OFFSET $offset_value;";
+                    }        
+                    else if($order_by == 'age' && $order_type == 'desc'){
+                        $sqle .=   "SELECT *
+                                    FROM playerbasicinfo
+                                    WHERE DATE(regDate) = curdate()
+                                    ORDER BY age DESC
+                                    LIMIT 10 OFFSET $offset_value;";
+                    }        
                     
                 
                     if($conn->multi_query($sqle)){
                         do{
                                 if($result = $conn->store_result()){
                                     if($result->num_rows > 0){
-                                        $pCount[$i] = $result->num_rows;
+                                        // $pCount[$i] = $result->num_rows;
+                                        if($i < 4){
+                                            $res = $result->fetch_assoc();
+                                            $pCount[$i] = $res['total'];
+                                        }
                                     }
                                     $i++;
                                 }
@@ -246,7 +322,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_total.php" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_total.php?page=0" class="viewPortLink">
                         <span class="emp_text">Total</strong></span>
                     </a>
                 </div>
@@ -264,7 +340,7 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_active.php" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_active.php?page=0" class="viewPortLink">
                         <span class="emp_text">Active</strong></span></div>
                     </a>
                     
@@ -282,10 +358,14 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_pending.php"class="viewPortLink">
+                    <a href="http://localhost/webpage/players_pending.php?page=0"class="viewPortLink">
                         <span class="emp_text">Pending</span></div>
                     </a>
-                <div class="viewPortValue"> <span>0</span></div>
+                <div class="viewPortValue"> <span>          <?php
+                                                                echo $pCount[2]; 
+                                                            ?>
+                                            </span>
+                </div>
 
             </div>
             <div class="quickView qv4" style="background-color:#009680!important;">
@@ -294,12 +374,12 @@ header{
                 </div>
                 
                 <div class="viewPorts">
-                    <a href="http://localhost/webpage/players_new.php" class="viewPortLink">
+                    <a href="http://localhost/webpage/players_new.php?page=0" class="viewPortLink">
                         <span class="emp_text">New Admitted</span></div>
                     </a>
                 <div class="viewPortValue"> <span>
                                                             <?php
-                                                                echo $pCount[2]; 
+                                                                echo $pCount[3]; 
                                                             ?>
                                             </span>
                 </div>
@@ -321,20 +401,24 @@ header{
         <div class="AddPlayerPending">
             <div class="AddPlayer" >
   
-                <form action="#" method="post" class="sortForm">
-                    <input type="radio" value="id" name="sort" id="sort" checked="checked">ID
-                    <input type="radio" value="fname" name="sort" id="sort">fname
-                    <input type="radio" value="lname" name="sort" id="sort">lname
-                    <input type="radio" value="bgrh" name="sort" id="sort">blood&nbsp;group<br><br>
-                    <input type="submit" value="Sort" name="sort" id="sort">
+                <form action="http://localhost/webpage/players_new.php" method="POST" class="sortForm">
+                    <input type="radio" value="id" name="sort" id="sort" <?php if($order_by=='id') echo 'checked'?>>ID
+                    <input type="radio" value="name" name="sort" id="sort" <?php if($order_by=='name') echo 'checked'?>>Name
+                    <input type="radio" value="age" name="sort" id="sort" <?php if($order_by=='age') echo 'checked'?>>Age
+
+                    <br><br>
+                    <input type="radio" value="asc" name="ascDesc" id="ascDesc" <?php if($order_type=='asc') echo 'checked'?>>ascending
+                    <input type="radio" value="desc" name="ascDesc" id="ascDesc"<?php if($order_type=='desc') echo 'checked'?>>descending
+                    <input type="submit" value="Sort" id="sort" style="margin-left:5%;">
+                    
                 </form>
 
             </div>
             <div class="AddPlayer searchPlayer" >
      
-                <form action="#" method="post" class="searchForm">
-                    <input type="text" placeholder="search player here" name="sort" id="sort">
-                    <input type="submit" value="Sort" name="sort" id="sort">
+                <form action="http://localhost/webpage/players_search.php?query=y" method="post" class="searchForm">
+                    <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; ">
+                    <input type="submit" value="Search"  id="search" style="width:10%; padding:8px;">
                 </form>
                     
 
@@ -344,7 +428,7 @@ header{
         </div>
 
 
-        <div class="feeds" >
+        <div class="feeds">
             <div style="text-align: center; font-size: 20px; padding-bottom:10px; padding-right:0px; ">
                 <span>Results found: </span>
                 <span><?php echo $pCount[3]?></span>
@@ -356,7 +440,7 @@ header{
                    <th>Name</th>
                     <th>Age</th>
                     <th>Last Coach</th>
-                    <th>Member type</th>
+                    <th>Member type</th>    
                     <th>More</th>
                     <th>int</th>
 
@@ -367,6 +451,8 @@ header{
                     //    if($result = $conn->store_result())
                         while($row = $result->fetch_assoc()){
 
+                            // if($p == 10)
+                            //     break;
                             if($row['prestatus'] == 'n')
                                 $preText = "No";
 
@@ -485,14 +571,54 @@ header{
         </div>
         
         <div class="nextprevParent">
+
+
+            <?php
+
+
+                $total_printed = 0;
+                $prev_page = 0;
+                $next_page = 0;
+
+                if($page >= 0){
+                    $already_printed = $page * 10;
+                    $total_printed = $already_printed + $p;
+                }
+                $go_to_next_page = false;
+                if($pCount[3] > $total_printed){
+                    $go_to_next_page = true;
+                    $next_page = $page +1;
+                }
+                
+                $go_to_previous_page = false;
+                if($total_printed > 10){
+                    $go_to_previous_page = true;
+                    $prev_page = $page - 1;
+                }
+            ?>
+
+
+
+
+
             <div class="nextprevChild">
                 <div class="prevButton">
-                    <a href="#">previous</a>
+                <?php
+                
+                if($go_to_previous_page)
+                 echo '
+                    <a href="http://localhost/webpage/players_new.php?sort='.$order_by.'&ascDesc='.$order_type.'&page='.$prev_page.'">Previous Page</a>';
+                ?>
                 </div>
             </div>
             <div class="nextprevChild">
                 <div class="nextButton">
-                    <a href="next">next</a>
+                <?php
+                
+                if($go_to_next_page)
+                 echo '
+                    <a href="http://localhost/webpage/players_new.php?sort='.$order_by.'&ascDesc='.$order_type.'&page='.$next_page.'">Next Page</a>';
+                ?>
                 </div>
             </div>
 

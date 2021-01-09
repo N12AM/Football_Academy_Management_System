@@ -344,7 +344,7 @@ header{
             <div class="AddPlayer searchPlayer" >
      
                 <form action="#" method="post" class="searchForm">
-                    <input type="text" placeholder="search player here" name="sort" id="sort">
+                    <input type="text" placeholder="search player here" name="sort" id="sort" style="border-radius:5px">
                     <input type="submit" value="Sort" name="sort" id="sort">
                 </form>
                     

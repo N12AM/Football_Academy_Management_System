@@ -246,6 +246,9 @@ header{
                     $sqle .=    "SELECT COUNT(*) AS `total`
                                 FROM `player`
                                 WHERE prestatus = 'y';";
+                    
+                    $sqle .=     "SELECT COUNT(*) AS `total`
+                                FROM `applicant`;";
 
                     $sqle .=    "SELECT COUNT(*) AS `total`
                                 FROM player
@@ -306,7 +309,7 @@ header{
                                 if($result = $conn->store_result()){
                                     if($result->num_rows > 0){
                                         // $pCount[$i] = $result->num_rows;
-                                        if($i < 3){
+                                        if($i < 4){
                                             $res = $result->fetch_assoc();
                                             $pCount[$i] = $res['total'];
                                         }
@@ -369,7 +372,11 @@ header{
                     <a href="http://localhost/webpage/players_pending.php?page=0"class="viewPortLink">
                         <span class="emp_text">Pending</span></div>
                     </a>
-                <div class="viewPortValue"> <span>0</span></div>
+                <div class="viewPortValue"> <span>          <?php
+                                                                echo $pCount[2]; 
+                                                            ?>
+                                            </span>
+                </div>
 
             </div>
             <div class="quickView qv4" style="background-color:#009680!important;">
@@ -383,7 +390,7 @@ header{
                     </a>
                 <div class="viewPortValue"> <span>
                                                             <?php
-                                                                echo $pCount[2]; 
+                                                                echo $pCount[3]; 
                                                             ?>
                                             </span>
                 </div>
