@@ -117,7 +117,8 @@ header{
 
         <header class="intro">
             <span>
-                Football Academy ManageMent System <span><i class="fas fa-futbol"></i></span>
+                Football Academy ManageMent System 
+                <!-- <span><i class="fas fa-futbol"></i></span> -->
             </span> 
         </header>
 
@@ -144,20 +145,20 @@ header{
         </div>
         <div class="menuBar">
             <div class="menu">
-            <a href="http://localhost/webpage/admin_dashboard.php"><span><i class="fab fa-wpforms"></i></span>Dashboard</a>
-            <a href="http://localhost/webpage/admin_side_player_page.php"><span><i class="fas fa-newspaper"></i></span>Players</a>
-            <a href="#blog"target="_blank"><span></i></span><i class="fas fa-rss-square"></i>Coaches</a>
-            <a href="#videos"target="_blank"><span><i class="fas fa-video"></i></span>Employees</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>User</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Academic</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Performance</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Tournament</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Finance</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Message</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Mail</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Inventory</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Media</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Logout</a>
+            <a href="http://localhost/webpage/admin_dashboard.php"><span>Dashboard</span></a>
+            <a href="http://localhost/webpage/admin_side_player_page.php" style="color:#000;background-color:#999;"><span>Players</span></a>
+            <a href="#blog"target="_blank"><span>Coaches</span></a>
+            <a href="#videos"target="_blank"><span>Employees</span></a>
+            <a href="#More"target="_blank"><span>User</span></a>
+            <a href="#More"target="_blank"><span>Academic</span></a>
+            <a href="#More"target="_blank"><span>Performance</span></a>
+            <a href="#More"target="_blank"><span>Tournament</span></a>
+            <a href="#More"target="_blank"><span>Finance</span></a>
+            <a href="#More"target="_blank"><span>Message</span></a>
+            <a href="#More"target="_blank"><span>Mail</span></a>
+            <a href="#More"target="_blank"><span>Inventory</span></a>
+            <a href="#More"target="_blank"><span>Media</span></a>
+            <a href="#More"target="_blank"><span>Logout</span></a>
 
         </div>
 

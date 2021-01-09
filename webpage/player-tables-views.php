@@ -20,17 +20,18 @@ $sqle = "CREATE TABLE IF NOT EXISTS applicant(
     `applied_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);";
 
 $sqle .= "CREATE TABLE IF NOT EXISTS `player`(
-    `id` INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`id` INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `fname` VARCHAR(50) NOT NULL,
     `lname` VARCHAR(50) NOT NULL,
-    `email` VARCHAR(100) NOT NULL,
+	`email` VARCHAR(100) NOT NULL,
     `gender` VARCHAR(15) NOT NULL,
     `birthDate` DATE NOT NULL,
     `regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `coach_id` INT(6),
     `position` VARCHAR(30),
     `prestatus` CHAR(1),
-    UNIQUE(email) );";
+    UNIQUE(email),
+    FOREIGN KEY(coach_id) REFERENCES coach(id));";
 
 $sqle .=    "CREATE OR REPLACE VIEW applicants AS 
 SELECT id, CONCAT(fname, ' ', lname) AS full_name, city, phone, 
@@ -58,7 +59,7 @@ $sqle .=     "SELECT COUNT(*) AS `total`
 FROM `applicants`;";
 
 $sqle .=    "SELECT COUNT(*) AS `total`
-FROM player
+FROM playerbasicinfo
 WHERE DATE(regDate) = curdate();";
 //above 4 are needed in [players_total.php], [players_active.php], [players_pending.php], [players_new.php]
 ?>
