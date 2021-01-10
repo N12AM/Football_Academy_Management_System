@@ -24,37 +24,49 @@ if (!$conn->connect_error) {
 
     include 'player-tables-views.php';
     
-    if ($order_by == 'id' && $order_type == 'asc') {
+    if($order_type == 'asc'){
         $sqle .=   "SELECT *
-                                    FROM applicants
-                                    ORDER BY id ASC
-                                    LIMIT 10 OFFSET $offset_value;";
-    } else if ($order_by == 'id' && $order_type == 'desc') {
+                    FROM applicants
+                    ORDER BY $order_by ASC
+                    LIMIT 10 OFFSET $offset_value;";
+    }        
+    else if($order_type == 'desc'){
         $sqle .=   "SELECT *
-                                    FROM applicants
-                                    ORDER BY id DESC
-                                    LIMIT 10 OFFSET $offset_value;";
-    } else if ($order_by == 'name' && $order_type == 'asc') {
-        $sqle .=   "SELECT *
-                                    FROM applicants
-                                    ORDER BY `full_name` ASC
-                                    LIMIT 10 OFFSET $offset_value;";
-    } else if ($order_by == 'name' && $order_type == 'desc') {
-        $sqle .=   "SELECT *
-                                    FROM applicants
-                                    ORDER BY `full_name` DESC
-                                    LIMIT 10 OFFSET $offset_value;";
-    } else if ($order_by == 'age' && $order_type == 'asc') {
-        $sqle .=   "SELECT *
-                                    FROM applicants
-                                    ORDER BY age ASC
-                                    LIMIT 10 OFFSET $offset_value;";
-    } else if ($order_by == 'age' && $order_type == 'desc') {
-        $sqle .=   "SELECT *
-                                    FROM applicants
-                                    ORDER BY age DESC
-                                    LIMIT 10 OFFSET $offset_value;";
-    }
+                    FROM applicants
+                    ORDER BY $order_by DESC
+                    LIMIT 10 OFFSET $offset_value;";
+    }  
+    // if ($order_by == 'id' && $order_type == 'asc') {
+    //     $sqle .=   "SELECT *
+    //                                 FROM applicants
+    //                                 ORDER BY id ASC
+    //                                 LIMIT 10 OFFSET $offset_value;";
+    // } else if ($order_by == 'id' && $order_type == 'desc') {
+    //     $sqle .=   "SELECT *
+    //                                 FROM applicants
+    //                                 ORDER BY id DESC
+    //                                 LIMIT 10 OFFSET $offset_value;";
+    // } else if ($order_by == 'name' && $order_type == 'asc') {
+    //     $sqle .=   "SELECT *
+    //                                 FROM applicants
+    //                                 ORDER BY `full_name` ASC
+    //                                 LIMIT 10 OFFSET $offset_value;";
+    // } else if ($order_by == 'name' && $order_type == 'desc') {
+    //     $sqle .=   "SELECT *
+    //                                 FROM applicants
+    //                                 ORDER BY `full_name` DESC
+    //                                 LIMIT 10 OFFSET $offset_value;";
+    // } else if ($order_by == 'age' && $order_type == 'asc') {
+    //     $sqle .=   "SELECT *
+    //                                 FROM applicants
+    //                                 ORDER BY age ASC
+    //                                 LIMIT 10 OFFSET $offset_value;";
+    // } else if ($order_by == 'age' && $order_type == 'desc') {
+    //     $sqle .=   "SELECT *
+    //                                 FROM applicants
+    //                                 ORDER BY age DESC
+    //                                 LIMIT 10 OFFSET $offset_value;";
+    // }
     if ($conn->multi_query($sqle)) {
         do {
             if ($result = $conn->store_result()) {
@@ -270,7 +282,7 @@ if (!$conn->connect_error) {
                 <div class="AddPlayer">
                     <form action="http://localhost/webpage/players_pending.php" method="POST" class="sortForm">
                         <input type="radio" value="id" name="sort" id="sort" <?php if ($order_by == 'id') echo 'checked' ?>>ID
-                        <input type="radio" value="name" name="sort" id="sort" <?php if ($order_by == 'name') echo 'checked' ?>>Name
+                        <input type="radio" value="full_name" name="sort" id="sort" <?php if ($order_by == 'full_name') echo 'checked' ?>>Name
                         <input type="radio" value="age" name="sort" id="sort" <?php if ($order_by == 'age') echo 'checked' ?>>Age
                         <br><br>
                         <input type="radio" value="asc" name="ascDesc" id="ascDesc" <?php if ($order_type == 'asc') echo 'checked' ?>>ascending
@@ -280,7 +292,7 @@ if (!$conn->connect_error) {
                 </div>
 
                 <div class="AddPlayer searchPlayer">
-                    <form action="http://localhost/webpage/players_search.php?query=y" method="post" class="searchForm">
+                    <form action="http://localhost/webpage/players_search.php?where=applicants" method="post" class="searchForm">
                         <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; ">
                         <input type="submit" value="Search" id="search" style="width:10%; padding:8px;">
                     </form>

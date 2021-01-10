@@ -117,11 +117,11 @@
 }
 .extra{
     width:400px;
-    flex:30%;
+    flex:40%;
 }
 /*------------------------- below controls feed table */
 .feeds{
-    flex:70%;
+    flex:60%;
     padding-left: 50px;
     padding-right:50px;
 }

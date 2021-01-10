@@ -265,6 +265,10 @@ header{
                             $offset_value = ($page * 10);
                         }
                         
+                        $table_name = "playerbasicinfo";
+                        if(isset($_GET['where'])){
+                            $table_name = $_GET['where'];
+                        }
                         // if (!$mysqli->query("DROP VIEW IF EXISTS player_name") ||
                         //      !$mysqli->query("CREATE VIEW player_name AS
                         //                         SELECT id, CONCAT(fname, ' ',lname) AS full_name, timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age, position, prestatus
@@ -272,9 +276,22 @@ header{
                         //     echo "VIEW creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
                         // }
 
-                        $sqle =    "SELECT COUNT(*) AS `total`
-                                    FROM player_name
-                                    WHERE full_name like '%$search%';";
+                        if($search_type == 'new'){
+                            $sqle =    "SELECT COUNT(*) AS `total`
+                                        FROM $table_name
+                                        WHERE full_name like '%$search%' AND DATE(regDate) = curdate();";
+                        }
+                        else if($search_type =='y'){
+                            $sqle =   "SELECT COUNT(*) AS `total`
+                                        FROM $table_name
+                                        WHERE full_name like '%$search%' AND prestatus = 'y';";
+                        } 
+                        else{
+                            $sqle =    "SELECT COUNT(*) AS `total`
+                            FROM $table_name
+                            WHERE full_name like '%$search%';";
+                        }
+                        
     
                         // $sqle .=    "SELECT COUNT(*) AS `total`
                         //             FROM player
@@ -285,49 +302,98 @@ header{
                         //             FROM player
                         //             LIMIT 10 OFFSET $offset_value;";
     
+                        if($search_type =='y'){
+                            if($order_type == 'asc'){
+                            $sqle .=   "SELECT *
+                                        FROM $table_name
+                                        WHERE full_name like '%$search%' AND prestatus = 'y'
+                                        ORDER BY $order_by ASC
+                                        LIMIT 10 OFFSET $offset_value;";
+                            }        
+                            else if($search_type =='y' && $order_type == 'desc'){
+                            $sqle .=   "SELECT *
+                                        FROM $table_name
+                                        WHERE full_name like '%$search%' AND prestatus = 'y'
+                                        ORDER BY $order_by DESC
+                                        LIMIT 10 OFFSET $offset_value;";
+                            }
+                        }
                         
-                        if($order_by == 'id' && $order_type == 'asc'){
-                            $sqle .=   "SELECT *
-                                        FROM player_name
-                                        WHERE full_name like '%$search%'
-                                        ORDER BY id ASC
-                                        LIMIT 10 OFFSET $offset_value;";
-                        }        
-                        else if($order_by == 'id' && $order_type == 'desc'){
-                            $sqle .=   "SELECT *
-                                        FROM player_name
-                                        WHERE full_name like '%$search%'
-                                        ORDER BY id DESC
-                                        LIMIT 10 OFFSET $offset_value;";
-                        }        
-                        else if($order_by == 'name' && $order_type == 'asc'){
-                            $sqle .=   "SELECT *
-                                        FROM player_name
-                                        WHERE full_name like '%$search%'
-                                        ORDER BY `full_name` ASC
-                                        LIMIT 10 OFFSET $offset_value;";
-                        }        
-                        else if($order_by == 'name' && $order_type == 'desc'){
-                            $sqle .=   "SELECT *
-                                        FROM player_name
-                                        WHERE full_name like '%$search%'
-                                        ORDER BY `full_name` DESC
-                                        LIMIT 10 OFFSET $offset_value;";
-                        }        
-                        else if($order_by == 'age' && $order_type == 'asc'){
-                            $sqle .=   "SELECT *
-                                        FROM player_name
-                                        WHERE full_name like '%$search%'
-                                        ORDER BY age ASC
-                                        LIMIT 10 OFFSET $offset_value;";
-                        }        
-                        else if($order_by == 'age' && $order_type == 'desc'){
-                            $sqle .=   "SELECT *
-                                        FROM player_name
-                                        WHERE full_name like '%$search%'
-                                        ORDER BY age DESC
-                                        LIMIT 10 OFFSET $offset_value;";
-                        }        
+                        else if($search_type =='new'){
+                            if($order_type == 'asc'){
+                                $sqle .=   "SELECT *
+                                            FROM $table_name
+                                            WHERE full_name like '%$search%' AND DATE(regDate) = curdate()
+                                            ORDER BY $order_by ASC
+                                            LIMIT 10 OFFSET $offset_value;";
+                            }        
+                            else if($search_type =='new' && $order_type == 'desc'){
+                                $sqle .=   "SELECT *
+                                            FROM $table_name
+                                            WHERE full_name like '%$search%' AND DATE(regDate) = curdate()
+                                            ORDER BY $order_by DESC
+                                            LIMIT 10 OFFSET $offset_value;";
+                            }
+                        }
+                        else {
+                            if($order_type == 'asc'){
+                                $sqle .=   "SELECT *
+                                            FROM $table_name
+                                            WHERE full_name like '%$search%'
+                                            ORDER BY $order_by ASC
+                                            LIMIT 10 OFFSET $offset_value;";
+                            }        
+                            else if($order_type == 'desc'){
+                                $sqle .=   "SELECT *
+                                            FROM $table_name
+                                            WHERE full_name like '%$search%'
+                                            ORDER BY $order_by DESC
+                                            LIMIT 10 OFFSET $offset_value;";
+                            }
+                        }
+                        
+                        // if($order_by == 'id' && $order_type == 'asc'){
+                        //     $sqle .=   "SELECT *
+                        //                 FROM playerbasicinfo
+                        //                 WHERE full_name like '%$search%'
+                        //                 ORDER BY id ASC
+                        //                 LIMIT 10 OFFSET $offset_value;";
+                        // }        
+                        // else if($order_by == 'id' && $order_type == 'desc'){
+                        //     $sqle .=   "SELECT *
+                        //                 FROM player_name
+                        //                 WHERE full_name like '%$search%'
+                        //                 ORDER BY id DESC
+                        //                 LIMIT 10 OFFSET $offset_value;";
+                        // }        
+                        // else if($order_by == 'name' && $order_type == 'asc'){
+                        //     $sqle .=   "SELECT *
+                        //                 FROM player_name
+                        //                 WHERE full_name like '%$search%'
+                        //                 ORDER BY `full_name` ASC
+                        //                 LIMIT 10 OFFSET $offset_value;";
+                        // }        
+                        // else if($order_by == 'name' && $order_type == 'desc'){
+                        //     $sqle .=   "SELECT *
+                        //                 FROM player_name
+                        //                 WHERE full_name like '%$search%'
+                        //                 ORDER BY `full_name` DESC
+                        //                 LIMIT 10 OFFSET $offset_value;";
+                        // }        
+                        // else if($order_by == 'age' && $order_type == 'asc'){
+                        //     $sqle .=   "SELECT *
+                        //                 FROM player_name
+                        //                 WHERE full_name like '%$search%'
+                        //                 ORDER BY age ASC
+                        //                 LIMIT 10 OFFSET $offset_value;";
+                        // }        
+                        // else if($order_by == 'age' && $order_type == 'desc'){
+                        //     $sqle .=   "SELECT *
+                        //                 FROM player_name
+                        //                 WHERE full_name like '%$search%'
+                        //                 ORDER BY age DESC
+                        //                 LIMIT 10 OFFSET $offset_value;";
+                        // }        
                         
                     
                         if($conn->multi_query($sqle)){
@@ -393,9 +459,9 @@ header{
             <div class="AddPlayer" >
   
             <?php echo '
-                <form action="http://localhost/webpage/players_search.php?query='.$search_type.'&search='.$search.'" method="POST" class="sortForm">'; ?>
+                <form action="http://localhost/webpage/players_search.php?query='.$search_type.'&where='.$table_name.'&search='.$search.'" method="POST" class="sortForm">'; ?>
                     <input type="radio" value="id" name="sort" id="sort" <?php if($order_by=='id') echo 'checked'?>>ID
-                    <input type="radio" value="name" name="sort" id="sort" <?php if($order_by=='name') echo 'checked'?>>Name
+                    <input type="radio" value="full_name" name="sort" id="sort" <?php if($order_by=='full_name') echo 'checked'?>>Name
                     <input type="radio" value="age" name="sort" id="sort" <?php if($order_by=='age') echo 'checked'?>>Age
 
                     <br><br>
@@ -410,7 +476,7 @@ header{
             <div class="AddPlayer searchPlayer" >
      
             <?php echo '
-                <form action="http://localhost/webpage/players_search.php?query='.$search_type.'" method="post" class="searchForm">
+                <form action="http://localhost/webpage/players_search.php?query='.$search_type.'&where='.$table_name.'" method="post" class="searchForm">
                     <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; ">
                     <input type="submit" value="Search"  id="search" style="width:10%; padding:8px;">
                 </form> 
@@ -448,25 +514,43 @@ header{
 
                             // if($p == 10)
                             //     break;
-                            if($row['prestatus'] == 'n')
+                            if ($table_name != 'applicants'){
+                                if($row['prestatus'] == 'n')
                                 $preText = "No";
 
                             else if($row['prestatus'] == 'y')
                                 $preText = "Yes";
                             else 
                                 $preText = 'No';
+                            }
+                            
 
-                            echo '<tr class="feedTableRow">
-                    
+                            if ($table_name == 'applicants')
+                                echo '<tr class="feedTableRow">
+                            
                                     <td><img src="res/user4.png" style="width:100px;"></td>
-                                    <td>' .$row['id']. '</td>
-                                    <td>'.$row['full_name'].'</td>
-                                    <td>'.$row['age'].'</td>
-                                    <td>'.$row['position'].'</td>
-                                    <td>'.$preText.'</td>
-                                    <td><a href="http://webpage/player_profile.php?id='.$row['id'].'"><span>View Profile</span></a></td>
-                                    <td>'.$p.'</td>
-                                 </tr>';
+                                    <td>' . $row['id'] . '</td>
+                                    <td>' . $row['full_name'] . '</td>
+                                    <td>' . $row['age'] . '</td>
+                                    <td>' . $row['phone'] . '</td>
+                                    <td>' . $row['city'] . '</td>
+                                    <td>' . $row['regDate'] . '</td>
+                                    <td><a href="http://webpage/player_profile.php?id=' . $row['id'] . '"><span>View Profile</span></a></td>
+                                    <td>' . $p . '</td>
+                                </tr>';
+                            else
+                                echo '<tr class="feedTableRow">
+                    
+                                        <td><img src="res/user4.png" style="width:100px;"></td>
+                                        <td>' .$row['id']. '</td>
+                                        <td>'.$row['full_name'].'</td>
+                                        <td>'.$row['age'].'</td>
+                                        <td>'.$row['position'].'</td>
+                                        <td>'.$preText.'</td>
+                                        <td><a href="http://webpage/player_profile.php?id='.$row['id'].'"><span>View Profile</span></a></td>
+                                        <td>'.$p.'</td>
+                                     </tr>';
+                            
                             $p++;
                         }
 

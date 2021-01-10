@@ -409,6 +409,7 @@ function myFunction() {
                     else if(strlen($nid) < 7){
                         $niderror = "*too short";
                     }
+                    
                 }
 
                                 //----------------------------------------------------------------------varify gender
@@ -439,6 +440,7 @@ function myFunction() {
                         $natError = "*Invalid format, letter only";
                     }
                     else
+                        $nationality = strtolower($nationality);
                         $input++;
                 }
                 else{

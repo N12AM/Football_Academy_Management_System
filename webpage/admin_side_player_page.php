@@ -382,7 +382,7 @@ header{
                     <td>BT league</td>
                 </tr>
                 <tr class="feedTableRow">
-                    <td><img src="res/  user7.png" style="width:100px;"></td>
+                    <td><img src="res/user7.png" style="width:100px;"></td>
                     <td>pName</td>
                     <td>35</td>
                     <td>striker</td>
