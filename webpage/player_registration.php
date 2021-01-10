@@ -191,20 +191,20 @@ function myFunction() {
         </div>
         <div class="menuBar">
             <div class="menu">
-            <a href="http://localhost/webpage/admin_dashboard.php"><span><i class="fab fa-wpforms"></i></span>Dashboard</a>
-            <a href="http://localhost/webpage/admin_side_player_page.php"><span><i class="fas fa-newspaper"></i></span>Players</a>
-            <a href="#blog"target="_blank"><span></i></span><i class="fas fa-rss-square"></i>Coaches</a>
-            <a href="#videos"target="_blank"><span><i class="fas fa-video"></i></span>Employees</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>User</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Academic</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Performance</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Tournament</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Finance</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Message</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Mail</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Inventory</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Media</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Logout</a>
+            <a href="http://localhost/webpage/admin_dashboard.php"><span>Dashboard</span></a>
+            <a href="http://localhost/webpage/admin_side_player_page.php" style="color:#000;background-color:#999;"><span>Players</span></a>
+            <a href="#blog"target="_blank"><span>Coaches</span></a>
+            <a href="#videos"target="_blank"><span>Employees</span></a>
+            <a href="#More"target="_blank"><span>Academic</span></a>
+            <a href="#More"target="_blank"><span>User</span></a>
+            <a href="#More"target="_blank"><span>Performance</span></a>
+            <a href="#More"target="_blank"><span>Tournament</span></a>
+            <a href="#More"target="_blank"><span>Finance</span></a>
+            <a href="#More"target="_blank"><span>Message</span></a>
+            <a href="#More"target="_blank"><span>Mail</span></a>
+            <a href="#More"target="_blank"><span>Inventory</span></a>
+            <a href="#More"target="_blank"><span>Media</span></a>
+            <a href="#More"target="_blank"><span>Logout</span></a>
 
         </div>
 
@@ -368,6 +368,7 @@ function myFunction() {
                         $bgerror = "* blood group must be selected";
                 }
                 else{
+                    $bgroup = $_POST['group'];
                     $input++;
                 }
                 
@@ -378,6 +379,7 @@ function myFunction() {
                         $rherror = "* RH must be selected";
                 }
                 else{
+                    $rh = $_POST['rh'];
                     $input++;
                 }
 
@@ -418,6 +420,7 @@ function myFunction() {
                     $genderError = "* gender must be selected";
                 }
                 else{
+                    $gender = $_POST['gender'];
                     $input++;
                 }
 
@@ -456,12 +459,12 @@ function myFunction() {
                 return $data;
             }
 
-            function already_exists($usr_email, $tmp){
+            function already_exists($usr, $tmp){
 
                 include 'database_connect.php';
                 if($tmp == 'email'){
-                    $sql = "SELECT email FROM player WHERE email = '$usr_email' ;";
-                    $sql .="SELECT email FROM applicant WHERE email = '$usr_email' ;";
+                    $sql = "SELECT email FROM player WHERE email = '$usr' ;";
+                    $sql .="SELECT email FROM applicant WHERE email = '$usr' ;";
                 }
 
                 if($conn->multi_query($sql)){
@@ -487,7 +490,7 @@ function myFunction() {
                     echo"<script>console.log($email);</script>";
                     echo"<script>
                                                 
-                       alert('done.');
+                       alert('Redirecting to a different page to Upload an Image');
                         window.location.href='http://localhost/webpage/register_player.php?fname=$fname&lname=$lname&email=$email&address=$address&city=$city&street=$street&group=$bgroup&rh=$rh&gender=$gender&date=$bdate&nat=$nationality&phone=$phone&bcn=$bcn&nid=$nid&zip=$zip';
                     // myFunction();
                     </script>";
@@ -608,7 +611,7 @@ function myFunction() {
                                 <label for="byear"><span class="material-icons">today</span>National ID Number (optional)</label > 
                                 <input type="text" id="nid" name="nid" placeholder="11XXXXXXX99" value="<?php echo $nid?>" >
                                 <br><span style="font-size:17px; color:red"><?php echo $niderror?> </span>
-
+                            
                             
                                 <br><br>
                                 

@@ -1,0 +1,40 @@
+/* .user-info{
+    padding:50px 0px 0px 30px ;
+} */
+.user-info-table{
+    margin:0;
+    width: 100%;
+}
+
+.user-info-row{
+    padding-left:10px;
+    font-size:25px;
+    text-align:left;
+    background-color:rgba(193, 255, 184, 0.315);
+}
+.user-info-row:nth-child(even){
+    background-color:white
+}
+.user-attribute{
+    padding:20px 0px 20px 30px;
+    text-align:left;
+    width: 30%;
+}
+
+.user-info-column{
+    width: 70%;;
+}
+.rwbtn{
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+.rwbtn:hover{
+    background-color: #45a049;
+}

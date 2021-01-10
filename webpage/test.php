@@ -1,35 +1,37 @@
-<!DOCTYPE html>
-<head>
-
-<body>
 <?php
-//  $string = "2010-11-24";
-//  $date = DateTime::createFromFormat("Y-m-d", $string);
-//  echo $date->format("Y-m-d");
-                include 'database_connect.php';
+include 'database_connect.php';
 
+if(isset($_POST['but_upload'])){
+ 
+  $name = $_FILES['file']['name'];
+  $target_dir = "upload/";
+  $target_file = $target_dir . basename($_FILES["file"]["name"]);
 
-                $bdate = $_POST['date'];
+  echo'<span>'.$target_dir.'</span>';
+  // Select file type
+  $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-                echo $bdate;
-                $date = DateTime::createFromFormat("Y-m-d", $bdate);
-                echo $date->format("m-Y-d");
+  // Valid file extensions
+  $extensions_arr = array("jpg","jpeg","png");
 
+  // Check extension
+  if( in_array($imageFileType,$extensions_arr) ){
+ 
+    // Convert to base64 
+    $image_base64 = base64_encode(file_get_contents($_FILES['file']['tmp_name']) );
+    $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+    // Insert record
+    $query = "insert into images(image) values('".$image."')";
+    mysqli_query($conn,$query);
+  
+    // Upload file
+    // move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+  }
+ 
+}
+?>
 
-                // if(! $conn->connect_error){
-                    
-                    
-
-
-                //     // }
-                // }
-            ?>
-
-            <!-- <?php
-                $conn->close()
-            ?> -->
-</body>
-
-</head>
-
-</html>
+<form method="post" action="test.php" enctype='multipart/form-data'>
+  <input type='file' name='file' />
+  <input type='submit' value='Save name' name='but_upload'>
+</form>

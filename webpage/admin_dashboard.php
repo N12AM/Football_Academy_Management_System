@@ -70,20 +70,20 @@
             </div>
             <div class="menuBar">
                 <div class="menu">
-                    <a href="http://localhost/webpage/admin_dashboard.php"><span><i class="fab fa-wpforms"></i></span>Dashboard</a>
-                    <a href="http://localhost/webpage/admin_side_player_page.php"><span><i class="fas fa-newspaper"></i></span>Players</a>
-                    <a href="#blog" target="_blank"><span></i></span><i class="fas fa-rss-square"></i>Coaches</a>
-                    <a href="#videos" target="_blank"><span><i class="fas fa-video"></i></span>Employees</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>User</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Academic</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Performance</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Tournament</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Finance</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Message</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Mail</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Inventory</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Media</a>
-                    <a href="#More" target="_blank"><span><i class="far fa-plus-square"></i></span>Logout</a>
+                    <a href="http://localhost/webpage/admin_dashboard.php" style="color:#000;background-color:#999"><span>Dashboard</span></a>
+                    <a href="http://localhost/webpage/admin_side_player_page.php"><span>Players</span></a>
+                    <a href="#blog" target="_blank"><span>Coaches</span></a>
+                    <a href="#videos" target="_blank"><span>Employees</span></a>
+                    <a href="#More" target="_blank"><span>User</span></a>
+                    <a href="#More" target="_blank"><span>Academic</span></a>
+                    <a href="#More" target="_blank"><span>Performance</span></a>
+                    <a href="#More" target="_blank"><span>Tournament</span></a>
+                    <a href="#More" target="_blank"><span>Finance</span></a>
+                    <a href="#More" target="_blank"><span>Message</span></a>
+                    <a href="#More" target="_blank"><span>Mail</span></a>
+                    <a href="#More" target="_blank"><span>Inventory</span></a>
+                    <a href="#More" target="_blank"><span>Media</span></a>
+                    <a href="#More" target="_blank"><span>Logout</span></a>
 
                 </div>
 
@@ -129,10 +129,14 @@
                 if (!$conn->connect_error) {
 
 
-                    $sqle = "SELECT id FROM `employee`;";
-                    $sqle .= "SELECT id FROM `coach`;";
-                    $sqle .= "SELECT id FROM `player`;";
-                    $sqle .= "SELECT id FROM `tournament` WHERE wstat ='win'";
+                    $sqle = "SELECT COUNT(*) AS `total` FROM `employee`;";
+                    $sqle .= "SELECT COUNT(*) AS `total` FROM `coach`;";
+                    $sqle .= "SELECT COUNT(*) AS `total` FROM `player`;";
+                    $sqle .= "SELECT COUNT(*) AS `total` FROM `tournament` WHERE wstat ='win';";
+                    $sqle .= "SELECT ename, timestampdiff(SECOND,etime,CURTIME()) AS `timed`
+                            FROM recent_events
+                                ORDER BY timed DESC
+                                LIMIT 10;";
 
 
 
@@ -140,9 +144,13 @@
                         do {
                             if ($result = $conn->store_result()) {
                                 if ($result->num_rows > 0) {
-                                    $empCount[$i] = $result->num_rows;
-                                    $i++;
+                                    // $pCount[$i] = $result->num_rows;
+                                    if ($i < 4) {
+                                        $res = $result->fetch_assoc();
+                                        $pCount[$i] = $res['total'];
+                                    }
                                 }
+                                $i++;
                             }
                         } while ($conn->next_result());
                     }
@@ -199,7 +207,7 @@
                     <div class="viewPortValue"> <span>
 
                             <?php
-                            echo $empCount[0];
+                            echo $pCount[0];
                             ?>
 
                         </span></div>
@@ -215,7 +223,7 @@
                     <div class="viewPorts"><span class="emp_text">Coaches</strong></span></div>
                     <div class="viewPortValue"> <span>
                             <?php
-                            echo $empCount[1];
+                            echo $pCount[1];
                             ?>
                         </span></div>
 
@@ -228,7 +236,7 @@
                     <div class="viewPorts"><span class="emp_text">Players</span></div>
                     <div class="viewPortValue"> <span>
                             <?php
-                            echo $empCount[2];
+                            echo $pCount[2];
                             ?>
                         </span></div>
 
@@ -241,7 +249,7 @@
                     <div class="viewPorts"><span class="emp_text">Wins</span></div>
                     <div class="viewPortValue"> <span>
                             <?php
-                            echo $empCount[3];
+                            echo $pCount[3];
                             ?>
                         </span></div>
 
@@ -276,58 +284,94 @@
                             <th>what's new</th>
                             <th>when</th>
                         </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
-                        <tr class="feedTableRow">
-                            <td><span class="material-icons">fiber_new</span></td>
-                            <td>EventName</td>
-                            <td>11 mins ago</td>
-                        </tr>
 
+
+                        <?php
+                        $p = 0;$time = 0; $postfix=" seconds ago";
+                            while($row = $result->fetch_assoc()){
+                                if($row['timed'] >60){
+                                    $time = $row['timed'] / 60;
+                                    $postfix = " minutes ago";
+                                    
+                                    if($time > 60){
+                                        $time = $time / 60;
+                                        $postfix = " hours ago";
+
+
+                                        if($time > 24){
+                                            $time = $time / 24;
+                                            $postfix = " days ago";
+                                        }
+                                    }
+                                }
+                                else{
+                                    $time = $row['timed'];
+                                    $postfix=" seconds ago";
+                                }
+                                echo '<tr class="feedTableRow">
+                                    <td><span class="material-icons">fiber_new</span></td>
+                                    <td>'.$row['ename'].'</td>
+                                    <td>'.(int)$time.' '.$postfix.'</td>
+                                    </tr>';
+
+                                    $p++;
+                            }
+                        ?>
+
+
+
+
+                        <!-- <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
                         </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr>
+                        <tr class="feedTableRow">
+                            <td><span class="material-icons">fiber_new</span></td>
+                            <td>EventName</td>
+                            <td>11 mins ago</td>
+                        </tr> -->
+
                     </table>
                 </div>
             </div>
