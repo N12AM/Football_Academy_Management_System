@@ -7,6 +7,7 @@
         <!-- <link rel="stylesheet" href="pageStyle.css" > -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="mainStyle.css">
+        <link rel="stylesheet" type="text/css" href="formStyle.css">
         <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
         
         <!-- <script src="https://kit.fontawesome.com/9de1d8df31.js" crossorigin="anonymous"></script> -->
@@ -124,6 +125,10 @@ header{
   background-color: #45a049;
 }
 
+/* .player-pos {
+    padding-left:40px;  
+    color:red;  
+} */
 
 @media (max-width: 800px) {
   .row {
@@ -214,16 +219,11 @@ function myFunction() {
                 
     </div>
 
-
-    
-
-
-    
     <div class="side" style="text-align:justify;">
         
         <div class="dashboard" style="height:50px; text-align: left; font-size:23px; padding-left: 20px;;">
             <span class="material-icons" style="font-size: 24px;">dashboard</span>
-            <span style="font-family:'Aclonica',Arial, Helvetica, sans-serif;">Player Registration Form</span>
+            <span style="font-family:'Aclonica',Arial, Helvetica, sans-serif;">Update Player Information</span>
         </div>
 
 
@@ -233,14 +233,19 @@ function myFunction() {
 
         <?php
             $nerror =$lnerror=$emerror =$adderror = $cityerror= $streetError=$ziperror = $pherror = $bgerror =
-                 $rherror=$bcnerror = $natError =$genderError = $dateError = $niderror = "";
+                 $rherror=$bcnerror = $natError =$genderError = $dateError = $niderror = $coachERR = $position = "";
             
             $fname = $lname = $email = $address = $city = $street = $bgroup = $rh= $gender =$bdate=  $nationality = $niderror= "";
-            $phone = $bcn = $nid = $zip= 0;
+            $phone = $bcn = $nid = $zip= $coach = 0;
 
             $input = 0;
+            $pid = 0;
 
             if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+                if(isset($_POST['pid'])){
+                     $pid = $_POST['pid'];
+                }
                if(!empty($_POST['fname'])){
                    $fname = test_values($_POST['fname']);
                    
@@ -364,11 +369,11 @@ function myFunction() {
                 
                 //---------------------------------------------------------------------- blood group check
 
-                if(empty($_POST['group'])){
+                if(empty($_POST['blood_group'])){
                         $bgerror = "* blood group must be selected";
                 }
                 else{
-                    $bgroup = $_POST['group'];
+                    $bgroup = $_POST['blood_group'];
                     $input++;
                 }
                 
@@ -384,8 +389,8 @@ function myFunction() {
                 }
 
                 //----------------------------------------------------------------------varify birth CN
-                if(!empty($_POST['bcn'])){
-                    $bcn = test_values($_POST['bcn']);
+                if(!empty($_POST['birth_certificate'])){
+                    $bcn = test_values($_POST['birth_certificate']);
                                     
                     if(!preg_match("/^[0-9]*$/", $bcn) ){
                         $bcnerror = "*Invalid format";
@@ -426,18 +431,18 @@ function myFunction() {
 
                                 //----------------------------------------------------------------------varify date
 
-                if(empty($_POST['date'])){
+                if(empty($_POST['birthDate'])){
                     $dateError = "* birth date must be specified";
                 }
                 else{
-                    $bdate = $_POST['date'];
+                    $bdate = $_POST['birthDate'];
                     $input++;
                 }
 
                                 //----------------------------------------------------------------------varify nationality
 
-                if(!empty($_POST['nat'])){
-                    $nationality = test_values($_POST['nat']);
+                if(!empty($_POST['nationality'])){
+                    $nationality = test_values($_POST['nationality']);
                     
                     if(!preg_match("/^[a-zA-Z]*$/", $nationality)){
                         $natError = "*Invalid format, letter only";
@@ -449,8 +454,108 @@ function myFunction() {
                 else{
                      $natError = "*cannot be empty";
                 } 
+
+                if(!empty($_POST['coach_id'])){
+                    $coach = $_POST['coach_id'];
+                    if($coach > 20000){
+                        if(!already_exists($coach, 'coach')){
+                            $coachERR = "Coach ID not found";
+                        }
+                    }
+                }
             
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //  for post values
+            // else{
+
+            //     if(isset($_POST['pid'])){
+            //         $pid = $_POST['pid'];
+            //     }
+            //     if(isset($_POST['fname'])){
+            //         $fname = $_POST['fname'];
+            //     }
+            //     //--------------------------------------------------varify last name    ----------------------
+            //     if(isset($_POST['lname'])){
+            //         $lname = $_POST['lname'];
+            //     }
+            //     // ---------------------------------------------------varify email ---------------------------
+            //     if(isset($_POST['email'])){
+            //         $email = $_POST['email'];
+            //     }
+            //     // ------------------------------------------------- varify address-------------------------------
+            //     if(isset($_POST['address'])){
+            //          $address = $_POST['address'];
+            //      }
+            //       // ------------------------------------------------- varify city-------------------------------
+            //      if(isset($_POST['city'])){
+            //          $city = $_POST['city'];
+            //      }
+            //      //--------------------------------------------------- varify street------------------------------
+            //      if(isset($_POST['street'])){
+            //          $street = $_POST['street'];
+            //      }
+            //                      //--------------------------------------------------- varify zip------------------------------
+            //      if(isset($__POST['zip'])){
+            //          $zip = $_POST['zip'];                   
+            //      }
+            //                      //--------------------------------------------------- varify phone------------------------------
+            //      if(isset($_POST['phone'])){
+            //          $phone = $_POST['phone'];
+            //      }                
+            //      //---------------------------------------------------------------------- blood group check
+    
+            //      if(isset($_POST['blood_group'])){
+            //          $bgroup = $_POST['blood_group'];
+            //      }                
+            //      //---------------------------------------------------------------------- RH check
+    
+            //      if(isset($_POST['rh'])){
+            //          $rh = $_POST['rh'];
+            //      }
+    
+            //      //----------------------------------------------------------------------varify birth CN
+            //      if(isset($_POST['birth_certificate'])){
+            //          $bcn = $_POST['birth_certificate'];
+            //      }   
+            //     //----------------------------------------------------------------------varify birth CN    
+            //      if(isset($_POST['nid'])){
+            //          $nid = $_POST['nid'];                     
+            //      }
+            //     //----------------------------------------------------------------------varify gender            
+            //      if(isset($_POST['gender'])){
+            //          $gender = $_POST['gender'];
+            //      }
+            //                      //----------------------------------------------------------------------varify date
+            //      if(isset($_POST['birthDate'])){
+            //          $bdate = $_POST['birthDate'];
+            //      }
+            //     //----------------------------------------------------------------------varify nationality
+            //      if(isset($_POST['nationality'])){
+            //          $nationality = $_POST['nationality'];
+            //     }
+            //      if(isset($_POST['coach_id'])){
+            //         $coach = $_POST['coach_id'];
+            //      }
+
+            //      if(isset($_POST['position'])){
+            //          $position = $_POST['position'];
+            //      }
+            // }
 
             function test_values($data){
                 $data = trim($data);
@@ -462,19 +567,21 @@ function myFunction() {
             function already_exists($usr, $tmp){
 
                 include 'database_connect.php';
-                if($tmp == 'email'){
-                    $sql ="SELECT email FROM applicant WHERE email = '$usr' ;";
+                // if($tmp == 'email'){
+                //     $sql ="SELECT email FROM applicant WHERE email = '$usr' ;";
+                // }
+                if($tmp == 'coach'){
+                    $sql ="SELECT id FROM coach WHERE id = $usr ;";
                 }
 
-                if($conn->multi_query($sql)){
-                    do{
-                            if($result = $conn->store_result()){
-                                if($result->num_rows > 0){                                  
-                                    $conn->close();                                                                    
-                                   return true;
-                                }
-                            }
-                    }while($conn->next_result());
+                if($result =  $conn->query($sql)){
+
+                    if($result->num_rows > 0){                                
+                            $conn->close();                                                                    
+                           return true;                                
+                    }
+                    $conn->close();    
+                    return false;
                 }
                 $conn->close();    
                 return false;
@@ -485,22 +592,24 @@ function myFunction() {
                 //     console.log($input);
                 // </script>";
 
-                 if(!already_exists($email, 'email')){
-                    echo"<script>console.log($email);</script>";
-                    echo"<script>
+                 if(isset($_POST['confirm'])){
+                     if($_POST['confirm'] == 'yes'){
+                         echo"<script>
                                                 
                        alert('Redirecting to a different page to Upload an Image');
                         window.location.href='http://localhost/webpage/register_player.php?fname=$fname&lname=$lname&email=$email&address=$address&city=$city&street=$street&group=$bgroup&rh=$rh&gender=$gender&date=$bdate&nat=$nationality&phone=$phone&bcn=$bcn&nid=$nid&zip=$zip';
-                    // myFunction();
-                    </script>";
+                        // myFunction();
+                        </script>";
+                     }
+                    
 
                  }
-                 else{
-                    $emerror = "* email already exists";
-                 }
-
 
             }
+
+
+ 
+           
             
             
         ?>
@@ -512,8 +621,8 @@ function myFunction() {
             <div class="col-75">
                 <div class="xcontainer">
                     <h4>* required</h4>
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>">
-                    <!-- <form method="post" action="http://localhost/webpage/test.php"> -->
+                    <!-- <form method="post" action=" <?php // echo htmlspecialchars($_SERVER["PHP_SELF"])?>"> -->
+                    <form method="post" action="http://localhost/webpage/player_update_information.php?confirm=yes">
             
                         <div class="row">
                             <div class="col-50">
@@ -582,10 +691,10 @@ function myFunction() {
                                 <div class="row">
                                     <div class="col-50">
                                         <label for="Bgroup"><span class="material-icons">invert_colors</span>Blood Group *</label>
-                                        <input type="radio" value="A" id="group" name="group" <?php if(isset($_POST['group']) && $_POST['group'] =='A') echo "checked"?> >A
-                                        <input type="radio" value="B" id="group" name="group" <?php if(isset($_POST['group']) && $_POST['group'] =="B") echo "checked"?>>B
-                                        <input type="radio" value="O" id="group" name="group" <?php if(isset($_POST['group']) && $_POST['group'] =="O") echo "checked"?>>O
-                                        <input type="radio" value="AB" id="group" name="group" <?php if(isset($_POST['group']) && $_POST['group'] =="AB") echo "checked"?>>AB
+                                        <input type="radio" value="A" id="blood_group" name="blood_group" <?php if(isset($_POST['blood_group']) && $_POST['blood_group'] =='A') echo "checked"?> style="width:10%">A
+                                        <input type="radio" value="B" id="blood_group" name="blood_group" <?php if(isset($_POST['blood_group']) && $_POST['blood_group'] =="B") echo "checked"?>style="width:10%">B
+                                        <input type="radio" value="O" id="blood_group" name="blood_group" <?php if(isset($_POST['blood_group']) && $_POST['blood_group'] =="O") echo "checked"?>style="width:10%">O
+                                        <input type="radio" value="AB" id="blood_group" name="blood_group" <?php if(isset($_POST['blood_group']) && $_POST['blood_group'] =="AB") echo "checked"?>style="width:10%">AB
                                         <br><span style="font-size:17px; color:red"><?php echo $bgerror?> </span>
 
                                     </div>
@@ -593,8 +702,8 @@ function myFunction() {
                                     <div class="col-50">
                                     
                                         <label for="rh"><span class="material-icons">iso</span>RH*</label>
-                                        <input type="radio" value="p" id="rh" name="rh" <?php if(isset($_POST['rh']) && $_POST['rh'] =="p") echo "checked"?>>positive
-                                        <input type="radio" value="n" id="rh" name="rh" <?php if(isset($_POST['rh']) && $_POST['rh'] =="n") echo "checked"?>>negative
+                                        <input type="radio" value="p" id="rh" name="rh" <?php if(isset($_POST['rh']) && $_POST['rh'] =="p") echo "checked"?> style="width:10%">positive
+                                        <input type="radio" value="n" id="rh" name="rh" <?php if(isset($_POST['rh']) && $_POST['rh'] =="n") echo "checked"?>style="width:10%">negative
                                         <br><span style="font-size:17px; color:red"><?php echo $rherror?> </span>
 
                                     </div>
@@ -602,13 +711,13 @@ function myFunction() {
                                 <br><br><br>
                                 
                                 <label for="bcnum"><span class="material-icons">contacts</span>Birth Certificate number *</label>
-                                <input type="text" id="bcn" name="bcn" placeholder="1021332" value="<?php echo $bcn?>" >
+                                <input type="text" id="birth_certificate" name="birth_certificate" placeholder="1021332" value="<?php echo $bcn?>" >
                                 <br><span style="font-size:17px; color:red"><?php echo $bcnerror?> </span>
 
                 
                                 <br><br>
                                 <label for="byear"><span class="material-icons">today</span>National ID Number (optional)</label > 
-                                <input type="text" id="nid" name="nid" placeholder="11XXXXXXX99" value="<?php echo $nid?>" >
+                                <input type="text" id="nationality" name="nationality" placeholder="11XXXXXXX99" value="<?php echo $nid?>" >
                                 <br><span style="font-size:17px; color:red"><?php echo $niderror?> </span>
                             
                             
@@ -625,20 +734,39 @@ function myFunction() {
                                     </div>
                                     <div class="col-50">
                                         <label for="bday"><span class="material-icons">today</span>Birth Day *</label>
-                                        <input type="date" id="date" name="date" placeholder="8" value="<?php echo $bdate?>" >
+                                        <input type="date" id="birthDate" name="birthDate" placeholder="8" value="<?php echo $bdate?>" >
                                         <br><span style="font-size:17px; color:red"><?php echo $dateError?> </span>
 
                                     </div>
                                 </div>
                                     <br>
                                     <label for="wplace"><span class="material-icons">home_repair_service</span>Nationality *</label>
-                                    <input type="text" id="nationality" name="nat" placeholder="Bangladeshi" value="<?php echo $nationality?>" >
+                                    <input type="text" id="nationality" name="nationality" placeholder="Bangladeshi" value="<?php echo $nationality?>" >
                                     <br><span style="font-size:17px; color:red"><?php echo $natError?> </span>
 
                             </div>
+
+                            
                 
                         </div>
-                    
+                        <div class="player-pos">
+                            <br><br>
+                            <label for="Bgroup"><span class="material-icons">account_tree</span>Position</label><br>
+                            <input type="radio" value="striker" id="position" name="position" <?php if(isset($_POST['position']) && $_POST['position'] =='striker') echo "checked"?> >Striker<br>
+                            <input type="radio" value="midfielder" id="position" name="position" <?php if(isset($_POST['position']) && $_POST['position'] =="midfielder") echo "checked"?>>Mid Fielder<br>
+                            <input type="radio" value="defender" id="position" name="position" <?php if(isset($_POST['position']) && $_POST['position'] =="defender") echo "checked"?>>Defender<br>
+                            <input type="radio" value="goalkeeper" id="position" name="position" <?php if(isset($_POST['position']) && $_POST['position'] =="goalkeeper") echo "checked"?>>Goalkeeper<br>
+                            <br><span style="font-size:17px; color:red"><?php ?> </span>
+
+                            </div>
+
+                            <div class="player-coach">
+                                <br>
+
+                                <label for="wplace"><span class="material-icons">home_repair_service</span>Assign Coach ID</label>
+                                <input type="number" id="coach" name="coach" placeholder="default coach ID 20003" value="<?php echo $coach ?>" >
+                                <br><span style="font-size:17px; color:red"><?php echo $coachERR?> </span>
+                            </div>
                     
                     <input type="submit" value="submit" class="btn">
                     </form>
@@ -651,16 +779,6 @@ function myFunction() {
     </div>
 
 </div>
-        
-
-
-  
-
-
-
-
-
-
 
     <footer style="background-color: #f44336!important; color:#fff;z-index: 1000; position:static; margin-top: 13.1%; text-align: center;padding:20px;width:100%">
         <span>&copy Copyright 2020-2021 </span>

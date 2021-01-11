@@ -1,3 +1,44 @@
+<?php
+            include '..\database_connect.php';
+
+            $pCount = array(0, 0, 0, 0);
+            $i = 0;
+
+            if (!$conn->connect_error) {
+
+
+                $sqle =     "SELECT COUNT(*) AS `total`
+                                FROM `player`;";
+
+                $sqle .=    "SELECT COUNT(*) AS `total`
+                                FROM `player`
+                                WHERE prestatus = 'y';";
+
+                $sqle .=     "SELECT COUNT(*) AS `total`
+                                FROM `applicant`;";
+
+                $sqle .=    "SELECT COUNT(*) AS `total`
+                                FROM player
+                                WHERE DATE(regDate) = curdate();";
+
+
+                if ($conn->multi_query($sqle)) {
+                    do {
+                        if ($result = $conn->store_result()) {
+                            if ($result->num_rows > 0) {
+                                // $pCount[$i] = $result->num_rows;
+                                if ($i < 4) {
+                                    $res = $result->fetch_assoc();
+                                    $pCount[$i] = $res['total'];
+                                }
+                            }
+                            $i++;
+                        }
+                    } while ($conn->next_result());
+                }
+            }
+            ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -128,176 +169,48 @@
                     <a href="#More" target="_blank"><span>Mail</span></a>
                     <a href="#More" target="_blank"><span>Inventory</span></a>
                     <a href="#More" target="_blank"><span>Media</span></a>
-                    <a href="#More" target="_blank"><span>Logout</span></a>
-
+                    <a href="#More" target="_blank"><span>Logout</span></a> 
                 </div>
-
             </div>
-
-
-
         </div>
-
-
-
-
-
 
         <div class="side">
 
             <div class="dashboard" style="height:50px; text-align: left; font-size:23px; padding-left: 20px;;">
                 <span class="material-icons" style="font-size: 24px;">dashboard</span>
                 <span style="font-family:'Aclonica',Arial, Helvetica, sans-serif;">Players</span>
-            </div>
-
-
-
-            <!-- <?php
-                    include '..\database_connect.php';
-
-                    $empCount = array(0, 0, 0, 0);
-                    $i = 0;
-
-                    $playerCount = 0;
-                    if (!$conn->connect_error) {
-
-
-                        $sqle = "SELECT id FROM `player`;";
-
-                        $result = $conn->query($sqle);
-                        if ($result->num_rows > 0) {
-                            $playerCount = $result->num_rows;
-                        }
-
-
-                        // }
-                    }
-                    ?> -->
-
-            <?php
-            include '..\database_connect.php';
-
-            $pCount = array(0, 0, 0, 0);
-            $i = 0;
-
-            if (!$conn->connect_error) {
-
-
-                $sqle =     "SELECT COUNT(*) AS `total`
-                                FROM `player`;";
-
-                $sqle .=    "SELECT COUNT(*) AS `total`
-                                FROM `player`
-                                WHERE prestatus = 'y';";
-
-                $sqle .=     "SELECT COUNT(*) AS `total`
-                                FROM `applicant`;";
-
-                $sqle .=    "SELECT COUNT(*) AS `total`
-                                FROM player
-                                WHERE DATE(regDate) = curdate();";
-
-
-                if ($conn->multi_query($sqle)) {
-                    do {
-                        if ($result = $conn->store_result()) {
-                            if ($result->num_rows > 0) {
-                                // $pCount[$i] = $result->num_rows;
-                                if ($i < 4) {
-                                    $res = $result->fetch_assoc();
-                                    $pCount[$i] = $res['total'];
-                                }
-                            }
-                            $i++;
-                        }
-                    } while ($conn->next_result());
-                }
-            }
-            ?>
-
-
-
-
-
-
+            </div>     
 
 
             <!-- this is the quick look up panel -->
             <div class="quickLookup">
 
-                <!-- <table class="quickLookupTable">
-                <tr >
-                    <td class="quickLookupRows">Employees</td>
-                    <td class="quickLookupRows">Coachs</td>
-                    <td class="quickLookupRows">Players</td>
-                    <td class="quickLookupRows">Updates</td>
-                </tr>   
-            </table> -->
-
                 <div class="quickView" style="background-color:#f44336!important;">
-
-
-                    <div class="viewIcons">
-                        <span class="material-icons" style="font-size:50px;padding-top: 10px;">layers</span>
-                    </div>
-
+                    <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">layers</span></div>
                     <div class="viewPorts"><a href="/webpage/players_total.php?page=0"><span class="emp_text"">Total</strong></span> </a></div>
-                <div class=" viewPortValue"> <span> <?php
-                                                    echo $pCount[0];
-                                                    ?>
-                                </span>
-                    </div>
+                    <div class=" viewPortValue"> <span> <?php echo $pCount[0];?> </span></div>
                 </div>
+
                 <div class="quickView" style="background-color:#ff9800!important;">
-                    <div class="viewIcons">
-                        <span class="material-icons" style="font-size:50px;padding-top: 10px;">reduce_capacity</span>
-
-                    </div>
-
+                    <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">reduce_capacity</span></div>
                     <div class="viewPorts"><a href="http://localhost/webpage/players_active.php?page=0"><span class="emp_text">Active</strong></span></a></div>
-                    <div class="viewPortValue"> <span> <?php
-                                                        echo $pCount[1];
-                                                        ?>
-                        </span>
-                    </div>
-
+                    <div class="viewPortValue"> <span> <?php echo $pCount[1]; ?></span></div>
                 </div>
+
                 <div class="quickView" style="background-color:#2196f3!important;">
-                    <div class="viewIcons">
-                        <span class="material-icons" style="font-size:50px;padding-top: 10px;">assignment_late</span>
-                    </div>
-
+                    <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">assignment_late</span></div>
                     <div class="viewPorts"><a href="http://localhost/webpage/players_pending.php?page=0"><span class="emp_text">Pending</span></a></div>
-                    <div class="viewPortValue"> <span><?php
-                                                        echo $pCount[2];
-                                                        ?></span></div>
+                    <div class="viewPortValue"> <span><?php echo $pCount[2];?></span></div>
 
                 </div>
+
                 <div class="quickView" style="background-color:#009680!important;">
-                    <div class="viewIcons">
-                        <span class="material-icons" style="font-size:50px;padding-top: 10px;">new_releases</span>
-                    </div>
-
+                    <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">new_releases</span></div>
                     <div class="viewPorts"><a href="http://localhost/webpage/players_new.php?page=0"><span class="emp_text">New Admitted</span></a></div>
-                    <div class="viewPortValue"> <span>
-                            <?php
-                            echo $pCount[3];
-                            ?>
-                        </span>
-                    </div>
-
+                    <div class="viewPortValue"> <span><?php echo $pCount[3];?></span></div>
                 </div>
 
             </div>
-
-            <!-- + REMEMBER THE FEEDS WILL UPDATE 
-                 + WE WILL BE NEEDING ANOTHER database TABLE TO HOLD RECENT EVENTS
-                 + THAT WAY WHEN EVER WE VISIT THIS PAGE WE CAN KEEP THE EVENTS
-                 + the table will hold event name and time when it happend
-                 + we can substract that time from current time to find time diff
-            -->
-
-
 
             <div class="AddPlayerPending">
                 <div class="AddPlayer">

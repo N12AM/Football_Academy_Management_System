@@ -135,7 +135,7 @@
                     $sqle .= "SELECT COUNT(*) AS `total` FROM `tournament` WHERE wstat ='win';";
                     $sqle .= "SELECT ename, timestampdiff(SECOND,etime,CURTIME()) AS `timed`
                             FROM recent_events
-                                ORDER BY timed DESC
+                                ORDER BY timed ASC
                                 LIMIT 10;";
 
 
@@ -262,7 +262,7 @@
             <div class="dashboard_center">
                 <div class="extra" > 
                 <!-- style="background-color:rgba(255, 0, 0, 0.185) -->
-                    <video width="100%" height="100%" controls loop autoplay muted>
+                    <video width="100%" height="100%" controls  autoplay muted>
                 <source src="http://localhost/webpage/res/intro.mp4" type="video/mp4">
                 Your browser does not support the video tag.
                 </video>

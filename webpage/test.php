@@ -7,7 +7,7 @@ if(isset($_POST['but_upload'])){
   $target_dir = "upload/";
   $target_file = $target_dir . basename($_FILES["file"]["name"]);
 
-  echo'<span>'.$target_dir.'</span>';
+  echo'<span>'.$target_file.'</span>';
   // Select file type
   $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 

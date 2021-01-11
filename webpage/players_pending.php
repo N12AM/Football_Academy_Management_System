@@ -8,11 +8,21 @@ if (!$conn->connect_error) {
 
     $order_by = "id";
     $order_type = "asc";
+    $applicant = "";
 
     if (isset($_POST['sort'])) {$order_by = $_POST['sort'];}
     if (isset($_POST['ascDesc'])) { $order_type = $_POST['ascDesc'];}
     if (isset($_GET['sort'])) {$order_by = $_GET['sort'];}
     if (isset($_GET['ascDesc'])) {$order_type = $_GET['ascDesc'];}
+
+    // if(isset($_GET['applicant'])) {
+    //     $applicant = $_GET['applicant'];
+
+    //     if($applicant == 'yes'){
+    //         echo'<script>window.alert("New applicant added");</script>';
+    //     }
+    // }
+    
 
     $offset_value = 0;
     $page = 0;
@@ -365,6 +375,7 @@ if (!$conn->connect_error) {
                     $go_to_previous_page = true;
                     $prev_page = $page - 1;
                 }
+                
                 ?>
                 <div class="nextprevChild">
                     <div class="prevButton">
@@ -393,6 +404,7 @@ if (!$conn->connect_error) {
         <span>&copy Copyright 2020-2021 </span>
     </footer>
     <?php
+
     $conn->close();
     ?>
 

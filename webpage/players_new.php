@@ -265,7 +265,7 @@ header{font-family:'Aclonica',Arial, Helvetica, sans-serif;color:white;backgroun
                                         <td>'.$row['age'].'</td>
                                         <td>'.$row['position'].'</td>
                                         <td>'.$preText.'</td>
-                                        <td><a href="http://webpage/player_profile.php?id='.$row['id'].'"><span>View Profile</span></a></td>
+                                        <td><a href="http://localhost/webpage/player_profile.php?searchID='.$row['id'].'"><span>View Profile</span></a></td>
                                         <td>'.$p.'</td>
                                     </tr>';
                                 $p++;

@@ -139,16 +139,16 @@
 
                     try{
                         if ($conn->multi_query($sqle)) {
-                            // $sql = "INSERT INTO recent_events(ename)
-                            //         VALUES('New player applied');";
-                            // $conn->query($sql);
+                                // $sql = "INSERT INTO recent_events(ename)
+                                //         VALUES('New player applied');";
+                                // $conn->query($sql);
 
                             if(move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name)){
-                                echo'<script>alert("Added to applicants");</script>';
-                                header('location:http://localhost/webpage/players_pending.php?page=0');
+                                echo'<script>window.alert("Added to applicants");</script>';
+                                header('location:http://localhost/webpage/players_pending.php?applicant=yes&page=0');
                             }
                             else{
-                                echo'<script>alert("Something went wrong :(");</script>';
+                                echo'<script>window.alert("Something went wrong :(");</script>';
                             }
 
                             

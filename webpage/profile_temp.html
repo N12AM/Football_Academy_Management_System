@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="pageStyle.css" > -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="mainStyle.css">
+        <link rel="stylesheet" type="text/css" href="formStyle.css">
+        <link rel="stylesheet" type="text/css" href="profileStyle.css">
+        <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+        
+        <!-- <script src="https://kit.fontawesome.com/9de1d8df31.js" crossorigin="anonymous"></script> -->
+<style>
+    *{
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    padding:0;
+    background-color: #f1f1f1!important;
+}
+
+header{
+
+    font-family:'Aclonica',Arial, Helvetica, sans-serif;
+    color:white;
+    background-color:red;
+    font-size:30px;
+    text-align:left;
+    padding:20px;
+    top:0;
+    position:sticky;
+    z-index: 9999;
+
+}
+.AddPlayerPending{
+    background-color:antwhiteiquewhite;
+    padding:0px 8px;
+    display: flex;
+    margin-bottom: 16px!important;
+}
+.AddPlayer{
+    font-size: 20px;
+    color:#000;
+    margin-left:10px;
+    width:50%;
+    float:left;
+    display:block;
+    box-sizing: inherit;
+    content:"";
+    height:150px;
+    bottom: 10;;
+}
+
+
+.addPlayerLink{
+    text-decoration: none;
+    color:black !important;
+}
+
+
+/* ---------------------------------------below style for reviewing information of players */
+
+
+
+
+
+@media (max-width:400px){
+    body{
+        overflow-x: auto;
+        max-width: fit-content;
+    }
+    header{
+        font-size: 45px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 750px) and (min-width: 400px){
+    body{
+        overflow-x: hidden;
+    }
+}
+
+@media(min-width: 700px){
+    .container{
+        padding-left: 10%;
+    }
+}
+</style>
+    
+    </head>
+
+    <body>
+
+        <header class="intro">
+            <span>
+                Football Academy ManageMent System
+                 <!-- <span><i class="fas fa-futbol"></i></span> -->
+            </span> 
+        </header>
+
+
+
+
+
+
+
+
+
+<div class="page">
+    <div class="main" style="padding-top:40px;background-color: white!important;"  >
+
+        <div class="user" style="height:250px;font-family:'Aclonica',Arial, Helvetica, sans-serif;">
+            <img src="res/user3.png" style="width:106px">
+            <span>Welcome, <strong>Admin</strong></span><br>
+
+            <div class="userIcon">
+                <a href="#" class="icon"><i class="material-icons">person</i></a>
+                <a href="#" class="icon"><i class="material-icons">email</i></a>
+                <a href="#" class="icon"><i class="material-icons">login</i></a>
+            </div>    
+        </div>
+        <div class="menuBar">
+            <div class="menu">
+            <a href="http://localhost/webpage/admin_dashboard.php"><span>Dashboard</span></a>
+            <a href="http://localhost/webpage/admin_side_player_page.php" style="color:#000;background-color:#999;"><span><i class="fas fa-newspaper"></i></span>Players</a>
+            <a href="#blog"target="_blank"><span>Coaches</span></a>
+            <a href="#videos"target="_blank"><span>Employees</span></a>
+            <a href="#More"target="_blank"><span>User</span></a>
+            <a href="#More"target="_blank"><span>Academic</span></a>
+            <a href="#More"target="_blank"><span>Performance</span></a>
+            <a href="#More"target="_blank"><span>Tournament</span></a>
+            <a href="#More"target="_blank"><span>Finance</span></a>
+            <a href="#More"target="_blank"><span>Message</span></a>
+            <a href="#More"target="_blank"><span>Mail</span></a>
+            <a href="#More"target="_blank"><span>Inventory</span></a>
+            <a href="#More"target="_blank"><span>Media</span></a>
+            <a href="#More"target="_blank"><span>Logout</span></a>
+
+        </div>
+
+        </div>
+        
+
+                
+    </div>
+
+
+    
+
+
+    
+    <div class="side" style="background-color: white!important;">
+        
+        <div class="dashboard" style="height:50px; text-align: left; font-size:23px; padding-left: 20px;;">
+            <span class="material-icons" style="font-size: 24px;">dashboard</span>
+            <span style="font-family:'Aclonica',Arial, Helvetica, sans-serif;">Player Profile</span>
+        </div>
+
+
+
+
+        <!-- this is the quick look up panel -->
+        <div class="quickLookup">
+            
+            <!-- <table class="quickLookupTable">
+                <tr >
+                    <td class="quickLookupRows">Employees</td>
+                    <td class="quickLookupRows">Coachs</td>
+                    <td class="quickLookupRows">Players</td>
+                    <td class="quickLookupRows">Updates</td>
+                </tr>   
+            </table> -->
+            
+
+        </div>
+
+            <!-- + REMEMBER THE FEEDS WILL UPDATE 
+                 + WE WILL BE NEEDING ANOTHER database TABLE TO HOLD RECENT EVENTS
+                 + THAT WAY WHEN EVER WE VISIT THIS PAGE WE CAN KEEP THE EVENTS
+                 + the table will hold event name and time when it happend
+                 + we can substract that time from current time to find time diff
+            -->
+
+
+
+        <div >
+            <div  style="padding-right:20px;">
+                
+                <div class="player-peek">
+                    <div class="photo-controls" style="background-color: rgba(255, 103, 103, 0);">
+                        <div class="photo">
+                            <img src="res/user6.png" style="width:105%">
+                            <span></span>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="scores">
+                        
+
+                        <div class="score-tour">
+                            <div id="dual_x_div" style="width: 600px; height: 444px;"></div>
+
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript">
+                            google.charts.load('current', {'packages':['bar']});
+                            google.charts.setOnLoadCallback(drawStuff);
+
+                            function drawStuff() {
+                                var data = new google.visualization.arrayToDataTable([
+                                ['', 'score', 'goals', 'assist', 'foul'],
+                                ['Practise', 8.5, 30, 55, 15],
+                                ['Tournament', 7.0, 15, 40, 20],
+                                ]);
+
+                                var options = {
+                                width: 600,
+                                chart: {
+                                    title: 'Player Performance',
+                                    subtitle: 'Score out of 10, others total count'
+                                },
+                                bars: 'Vertical', // Required for Material Bar Charts.
+                                series: {
+                                    0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
+                                    1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+                                },
+                                // axes: {
+                                //     x: {
+                                //     // distance: {label: 'parsecs'}, // Bottom x-axis.
+                                //     // brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
+                                //     }
+                                // }
+                                };
+
+                            var chart = new google.charts.Bar(document.getElementById('dual_x_div'));
+                            chart.draw(data, options);
+                            };
+                            </script>
+                        </div>
+                        <div class="score-prac">
+                            <div id="piechart1"></div>
+
+                            
+
+                                <script>
+                                // Load google charts
+                                google.charts.load('current', {'packages':['corechart']});
+                                google.charts.setOnLoadCallback(drawChart);
+
+                                // Draw the chart and set the chart values
+                                function drawChart() {
+                                var data = google.visualization.arrayToDataTable([
+                                ['Task', 'minues'],
+                                ['Training', 8],
+                                ['idle', 12],
+                                ['Sleep', 8]
+                                ]);
+
+                                // Optional; add a title and set the width and height of the chart
+                                var options = {'title':'Time spent', 'width':550, 'height':440};
+
+                                // Display the chart inside the <div> element with id="piechart"
+                                var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+                                chart.draw(data, options);
+                                }
+                                </script>
+                        </div>
+
+                    </div>
+
+                </div>
+                
+
+                <div class="player_details">
+                    <div class="user-info">
+                        <table class="user-info-table">
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Player ID</th>
+                                <td class="user-info-column">$id</td>
+                            </tr>
+
+                            <tr class="user-info-row">
+                                <th class="user-attribute">First Name</th>
+                                <td class="user-info-column">$fname</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Last Name</th>
+                                <td class="user-info-column">$lname</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Email</th>
+                                <td class="user-info-column">$email</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Address</th>
+                                <td class="user-info-column">$address</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">City</th>
+                                <td class="user-info-column">$city</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Street</th>
+                                <td class="user-info-column">$street</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Postal Code</th>
+                                <td class="user-info-column">$zip</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Phone Number</th>
+                                <td class="user-info-column">$phone</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Coach</th>
+                                <td class="user-info-column">$coach_name</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Position</th>
+                                <td class="user-info-column">$position</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Member</th>
+                                <td class="user-info-column">$yesNo</td>
+                            </tr>
+
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Blood Group</th>
+                                <td class="user-info-column">$group</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Blood RH factor</th>
+                                <td class="user-info-column">$rh</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Birth Certificate number</th>
+                                <td class="user-info-column">$bcn</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">National ID number</th>
+                                <td class="user-info-column">$nid</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Gender</th>
+                                <td class="user-info-column">$gender</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Date of birth</th>
+                                <td class="user-info-column">$date</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Nationality</th>
+                                <td class="user-info-column">$nat</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Registration Date</th>
+                                <td class="user-info-column">$reg_Date</td>
+                            </tr>
+                            <tr class="user-info-row">
+                                <th class="user-attribute">Applied Date</th>
+                                <td class="user-info-column">$apl_date</td>
+                            </tr>
+
+
+                            
+                        </table>
+                    </div>
+                </div>
+                
+
+                <div class="update-description">
+                    <div class="update-info">
+                        <a href="#">Update Information</a> </a>
+                    </div>
+
+                </div>
+                
+
+            </div>
+            
+            
+            <div>
+
+            </div>
+ 
+
+        </div>
+
+
+    </div>
+
+    
+</div>
+        
+
+
+  
+
+
+
+
+
+
+
+<footer style="background-color: #f44336!important; color:#fff;z-index: 1000; position:static; margin-top: 13.1%;; text-align: center;padding:10px;">
+    <span>&copy Copyright 2020-2021 </span>
+</footer>  
+    <?php
+        $conn->close();    
+    ?>
+       
+</body>
+    
+</html>

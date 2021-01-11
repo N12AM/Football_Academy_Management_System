@@ -38,3 +38,21 @@
 .rwbtn:hover{
     background-color: #45a049;
 }
+
+
+/* ------------------------ */
+
+
+.player-pos input{
+    margin-left:40px;
+    margin-top:20px; 
+}
+
+.player-coach input{
+    width: 50%;
+    margin-bottom: 20px;
+    padding: 12px;
+    margin-left:10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
