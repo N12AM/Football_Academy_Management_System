@@ -221,7 +221,7 @@
                     </a>
                 </div>
                 <div class="AddPlayer">
-                    <a href="#" class="addPlayerLink">
+                    <a href="http://localhost/webpage/player_analysis.php" class="addPlayerLink">
                         <span class="material-icons" style="font-size:60px;">cached</span>
                         <br>
                         <span>Review&nbsp;Pending</span>

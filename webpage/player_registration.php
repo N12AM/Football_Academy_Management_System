@@ -293,17 +293,25 @@ function myFunction() {
                // ------------------------------------------------- varify address-------------------------------
                if(!empty($_POST['address'])){
                     $address = test_values($_POST['address']);
-                
-                    if(!preg_match("/^[0-9a-zA-Z-' ]*$/", $address)){
-                        $adderror = "*Invalid address";
+                    $address = strtolower($address);
+                    if($address != ''){
+                        if(!preg_match("/^[0-9a-zA-Z-' ]*$/", $address)){
+                            $adderror = "*Invalid address, leave field empty if not present";
+                            $address = '';
+                            $input--;
+                        }
                     }
+                    else{
+                        $address = "";
+                    }
+                    
 
                 }
 
                  // ------------------------------------------------- varify city-------------------------------
                 if(!empty($_POST['city'])){
                     $city = test_values($_POST['city']);
-                    
+                    $city = strtolower($city);
                     if(!preg_match("/^[a-zA-Z-' ]*$/", $city)){
                         $cityerror = "*Invalid format";
                     }
@@ -317,7 +325,8 @@ function myFunction() {
                 //--------------------------------------------------- varify street------------------------------
                 if(!empty($_POST['street'])){
                     $street = test_values($_POST['street']);
-                    
+                    $street = strtolower($street);
+
                     if(!preg_match("/^[0-9a-zA-Z-' ]*$/", $street)){
                         $streetError = "*Invalid format";
                     }
@@ -404,13 +413,21 @@ function myFunction() {
 
                 if(!empty($_POST['nid'])){
                     $nid = test_values($_POST['nid']);
-                                    
-                    if(!preg_match("/^[0-9]*$/", $nid) ){
-                        $niderror = "*Invalid format";
+                    
+                    if($nid != ""){
+                        if(!preg_match("/^[0-9]*$/", $nid) ){
+                            $niderror = "*Invalid format, leave field empty if not present";
+                            $nid = "";
+                            $input--;
+                        }
+                        else if(strlen($nid) < 7){
+                            $niderror = "*too short leave field empty if not present";
+                            $nid = "";
+                            $input--;
+                        }    
                     }
-                    else if(strlen($nid) < 7){
-                        $niderror = "*too short";
-                    }
+                    else
+                        $nid = "";
                     
                 }
 

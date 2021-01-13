@@ -499,7 +499,7 @@ header{
                    <th>ID</th>
                    <th>Name</th>
                     <th>Age</th>
-                    <th>Last Coach</th>
+                    <th>position</th>
                     <th>Member type</th>    
                     <th>More</th>
                     <th>int</th>

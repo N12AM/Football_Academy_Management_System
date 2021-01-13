@@ -80,6 +80,17 @@
     text-align:center;
 } 
 
+.update-player-info .update-submit-btn{
+    width:25%;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 3px;
+    font-size: 20px;
+}
 
 /* --------------------------------------- */
 
@@ -119,4 +130,21 @@
 }
 .rwbtn:hover{
     background-color: #45a049;
+}
+
+
+
+/* ----------------------------------------------------- */
+/* player analysis */
+
+.position{
+    display:flex;
+    width:100%;
+}
+
+.position-pie{
+    flex:50%;
+}
+.second-chart-container{
+    flex:50%;
 }

@@ -446,7 +446,7 @@ header{
                                 <th class="user-attribute">Position</th>
                                 <td class="user-info-column"><?php echo $position ?></td>
                             </tr>
-                            <tr class="user-info-row">
+                            <tr class="user-info-row" style="color:red;font-weight:bold">
                                 <th class="user-attribute">Member</th>
                                 <td class="user-info-column"><?php if($prestatus == 'y') echo 'yes'; else echo 'no' ?></td>
                             </tr>
@@ -495,7 +495,7 @@ header{
                 </div>
                 
 
-                <div>
+                <div class="update-player-info">
                     <form method="post" action="http://localhost/webpage/player_update_information.php">
                         <input type="hidden" name="pid" value="<?php echo $pid?>">
                         <input type="hidden" name="fname" value="<?php echo $fname?>">
@@ -515,14 +515,12 @@ header{
                         <input type="hidden" name="nationality" value="<?php echo $nationality?>">
                         <input type="hidden" name="zip" value="<?php echo $zip?>">
                         <input type="hidden" name="coach_id" value="<?php echo $coach_id?>">
-                        <input type="submit" name="save" value="submit">
+                        <input type="submit" name="save" value="Edit Description" class="update-submit-btn">
                     </form>
                 </div>
 
                 <div class="update-description" style="text-align:center">
-                    <div class="update-info">
-                        <a href="#"><span>Update Information</span></a> </a>
-                    </div>
+
 
                 </div>
                 
