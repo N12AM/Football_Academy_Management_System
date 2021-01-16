@@ -15,13 +15,13 @@ if (!$conn->connect_error) {
     if (isset($_GET['sort'])) {$order_by = $_GET['sort'];}
     if (isset($_GET['ascDesc'])) {$order_type = $_GET['ascDesc'];}
 
-    // if(isset($_GET['applicant'])) {
-    //     $applicant = $_GET['applicant'];
+    if(isset($_GET['applicant'])) {
+        $applicant = $_GET['applicant'];
 
-    //     if($applicant == 'yes'){
-    //         echo'<script>window.alert("New applicant added");</script>';
-    //     }
-    // }
+        if($applicant == 'yes'){
+            echo'<script>window.alert("New applicant added");</script>';
+        }
+    }
     
 
     $offset_value = 0;
@@ -249,7 +249,7 @@ if (!$conn->connect_error) {
                     <a href="#More" target="_blank"><span>Mail</span></a>
                     <a href="#More" target="_blank"><span>Inventory</span></a>
                     <a href="#More" target="_blank"><span>Media</span></a>
-                    <a href="#More" target="_blank"><span>Logout</span></a>
+                    <a href="http://localhost/webpage/logout.php" target="_blank"><span>Logout</span></a>
                 </div>
             </div>
         </div>
@@ -343,7 +343,7 @@ if (!$conn->connect_error) {
                                         <td>' . $row['phone'] . '</td>
                                         <td>' . $row['city'] . '</td>
                                         <td>' . $row['regDate'] . '</td>
-                                        <td><a href="http://webpage/player_profile.php?id=' . $row['id'] . '"><span>View Profile</span></a></td>
+                                        <td><a href="http://localhost/webpage/applicant_profile.php?searchID='.$row['id'].'"><span>View Profile</span></a></td>
                                         <td>' . $p . '</td>
                                     </tr>';
                         $p++;

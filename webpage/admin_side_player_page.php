@@ -4,6 +4,8 @@
             $pCount = array(0, 0, 0, 0);
             $i = 0;
 
+            $top_players_result = array();
+            $top = false;
             if (!$conn->connect_error) {
 
 
@@ -21,7 +23,15 @@
                                 FROM player
                                 WHERE DATE(regDate) = curdate();";
 
-
+                $top_players = "SELECT sp.id, CONCAT(fname, ' ', lname) AS full_name, p.position,
+                                        timestampdiff(YEAR, DATE(birthDate), CURDATE()) AS age,
+                                        ((sp.pscore + st.tscore)/2) AS base_score
+                                FROM scorecard_practise sp JOIN scorecard_tournament st
+                                ON sp.id = st.id JOIN player p 
+                                ON p.id = sp.id
+                                WHERE p.prestatus = 'y'
+                                ORDER BY base_score DESC
+                                LIMIT 10;";
                 if ($conn->multi_query($sqle)) {
                     do {
                         if ($result = $conn->store_result()) {
@@ -35,6 +45,11 @@
                             $i++;
                         }
                     } while ($conn->next_result());
+                
+                    if($top_players_result = $conn->query($top_players)) {
+                       $top = true;
+                    }
+                
                 }
             }
             ?>
@@ -169,7 +184,7 @@
                     <a href="#More" target="_blank"><span>Mail</span></a>
                     <a href="#More" target="_blank"><span>Inventory</span></a>
                     <a href="#More" target="_blank"><span>Media</span></a>
-                    <a href="#More" target="_blank"><span>Logout</span></a> 
+                    <a href="http://localhost/webpage/logout.php" target="_blank"><span>Logout</span></a> 
                 </div>
             </div>
         </div>
@@ -222,9 +237,9 @@
                 </div>
                 <div class="AddPlayer">
                     <a href="http://localhost/webpage/player_analysis.php" class="addPlayerLink">
-                        <span class="material-icons" style="font-size:60px;">cached</span>
+                        <span class="material-icons" style="font-size:60px;">leaderboard</span>
                         <br>
-                        <span>Review&nbsp;Pending</span>
+                        <span>Player Analytics</span>
                     </a>
                 </div>
 
@@ -242,80 +257,22 @@
                         <th>Player Name</th>
                         <th>age</th>
                         <th>position</th>
-                        <th>Recent Tournament</th>
+                    </tr>
+                    <?php
+                        if($top_players_result->num_rows > 0){
+                            while($row = $top_players_result->fetch_assoc()){
+                                echo'<tr class="feedTableRow">
+                                <td><img src="res/user4.png" style="width:100px;"></td>
+                                <td>'.$row['full_name'].'</td>
+                                <td>'.$row['age'].'</td>
+                                <td>'.$row['position'].'</td>
+                                </tr>';
+                            }
+                        }
+                        
+                    ?>
 
-                    </tr>
-                    <tr class="feedTableRow">
 
-                        <td><img src="res/user4.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user5.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user6.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user7.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user8.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user9.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user4.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user5.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user6.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
-                    <tr class="feedTableRow">
-                        <td><img src="res/user7.png" style="width:100px;"></td>
-                        <td>pName</td>
-                        <td>35</td>
-                        <td>striker</td>
-                        <td>BT league</td>
-                    </tr>
                 </table>
             </div>
 

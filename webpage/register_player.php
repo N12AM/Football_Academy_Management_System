@@ -129,7 +129,7 @@
                                 `ename` VARCHAR(40) NOT NULL,
                                 `etime` TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP);";
 
-                    $sqle .= "INSERT INTO applicant(fname, lname, email, `address`, city, street, zip, phone,
+                    $sqle = "INSERT INTO applicant(fname, lname, email, `address`, city, street, zip, phone,
                                                 blood_group, rh, birth_certificate, nid, gender,birth_date, nationality, `image`)
                     VALUES('" . $fname . "', '" . $lname . "', '" . $email . "', '" . $address . "','" . $city . "', '" . $street . "', $zip, '" . $phone . "', '" . $group . "', '" . $rh . "', '" . $bcn . "',
                                     '" . $nid . "', '" . $gender . "', '" . $date . "','" . $nat . "','" . $name . "');";
@@ -137,7 +137,7 @@
                     $sqle .="INSERT INTO recent_events(ename)
                             VALUES('New player applied');";
 
-                    try{
+
                         if ($conn->multi_query($sqle)) {
                                 // $sql = "INSERT INTO recent_events(ename)
                                 //         VALUES('New player applied');";
@@ -153,12 +153,10 @@
 
                             
                         }
-                    }
-                    catch(Exception $e){
-                        //ignores
-                        echo $e;
-                    }
-                    
+                        else{
+                            echo'<script>window.alert("Something went wrong :(");</script>';
+                        }
+
                 }
 
             
@@ -322,7 +320,7 @@ header{
             <a href="#More"target="_blank"><span>Mail</span></a>
             <a href="#More"target="_blank"><span>Inventory</span></a>
             <a href="#More"target="_blank"><span>Media</span></a>
-            <a href="#More"target="_blank"><span>Logout</span></a>
+            <a href="http://localhost/webpage/logout.php"target="_blank"><span>Logout</span></a>
 
         </div>
 

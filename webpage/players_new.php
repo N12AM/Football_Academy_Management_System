@@ -164,7 +164,7 @@ header{font-family:'Aclonica',Arial, Helvetica, sans-serif;color:white;backgroun
                 <a href="#More"target="_blank"><span>Mail</span></a>
                 <a href="#More"target="_blank"><span>Inventory</span></a>
                 <a href="#More"target="_blank"><span>Media</span></a>
-                <a href="#More"target="_blank"><span>Logout</span></a>
+                <a href="http://localhost/webpage/logout.php"target="_blank"><span>Logout</span></a>
             </div>
         </div>  
     </div>

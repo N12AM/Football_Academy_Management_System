@@ -156,7 +156,7 @@ header{
             <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Mail</a>
             <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Inventory</a>
             <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Media</a>
-            <a href="#More"target="_blank"><span><i class="far fa-plus-square"></i></span>Logout</a>
+            <a href="http://localhost/webpage/logout.php"target="_blank"><span><i class="far fa-plus-square"></i></span>Logout</a>
 
         </div>
 

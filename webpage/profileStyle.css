@@ -73,12 +73,29 @@
     color: rgb(255, 255, 255);
     font-family:'Aclonica';
     text-decoration: none;
-    background-color: rgb(255, 0, 0);
+    background-color: #4CAF50;
     padding: 10px;
     padding-right: 20px;
     font-size: 15px;
     text-align:center;
 } 
+.access-reduce{
+    margin-top:70px;
+    text-align:center;
+}
+.access-reduce a{
+    background-color:rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+    font-family:'Aclonica';
+    text-decoration: none;
+    padding: 10px;
+    padding-right: 20px;
+    font-size: 20px;
+    text-align:center;
+}
+.access-reduce a:hover{
+    background-color:rgb(145, 2, 2);
+}
 
 .update-player-info .update-submit-btn{
     width:25%;
@@ -90,6 +107,9 @@
     border: none;
     border-radius: 3px;
     font-size: 20px;
+}
+.update-player-info .update-submit-btn:hover{
+    background-color: #2f7e32;
 }
 
 /* --------------------------------------- */
@@ -147,4 +167,42 @@
 }
 .second-chart-container{
     flex:50%;
+}
+/* ----------------------------------------- */
+
+.scorecard-table{
+    width:100%;
+    font-size:20px;
+}
+.scorecard-table td{
+    padding:20px;
+}
+.scorecard-table tr:nth-child(odd){
+    background-color: #00ff0838;
+}
+.scorecard-table tr:hover{
+    background-color: #00b1065d;
+}
+.scorecard-table .time-update{
+    width:30%;
+}
+.scorecard-table .time-update input{
+    height:35px;
+    /* background-color: inherit; */
+}
+.score-update{
+    text-align: center;
+    padding:30px;
+}
+.score-update input{
+    background-color: #4CAF50;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    width:25%;
+    padding:10px;
+    border-style:none;
+}
+.score-update input:hover{
+    background-color: #208323;
 }

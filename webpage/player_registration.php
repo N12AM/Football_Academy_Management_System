@@ -235,8 +235,8 @@ function myFunction() {
             $nerror =$lnerror=$emerror =$adderror = $cityerror= $streetError=$ziperror = $pherror = $bgerror =
                  $rherror=$bcnerror = $natError =$genderError = $dateError = $niderror = "";
             
-            $fname = $lname = $email = $address = $city = $street = $bgroup = $rh= $gender =$bdate=  $nationality = $niderror= "";
-            $phone = $bcn = $nid = $zip= 0;
+            $fname = $lname = $email = $address = $city = $street = $bgroup = $rh= $gender =$bdate=  $nationality = $niderror= $phone = $bcn = $nid ="";
+            $zip= 0;
 
             $input = 0;
 

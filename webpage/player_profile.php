@@ -254,7 +254,7 @@ header{
             <a href="#More"target="_blank"><span>Mail</span></a>
             <a href="#More"target="_blank"><span>Inventory</span></a>
             <a href="#More"target="_blank"><span>Media</span></a>
-            <a href="#More"target="_blank"><span>Logout</span></a>
+            <a href="http://localhost/webpage/logout.php"target="_blank"><span>Logout</span></a>
 
         </div>
 
@@ -393,10 +393,16 @@ header{
 
                 </div>
                 <div class="edit-score">
-                    <a href="#"><span>Edit Scorecard</span></a> 
+                    <?php echo'
+                    <a href="http://localhost/webpage/player_scorecard.php?searchID='.$pid.'"><span>Edit Scorecard</span></a> '?>
                 </div>
+<?php if($prestatus == 'y')
+            echo'
+                <div class="access-reduce" >
+                    <a href="http://localhost/webpage/remove_member.php?id='.$pid.'" ><span>Take away member access</span></a> 
+                </div>';
                 
-
+?>
 
                 <div class="player_details">
                     <div class="user-info">
