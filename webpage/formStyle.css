@@ -56,3 +56,30 @@
     border: 1px solid #ccc;
     border-radius: 3px;
 }
+
+/* .sub-res{
+    display:flex;
+    width:100%;
+}
+.sub{
+    flex:50%;
+}
+.res{
+    flex:50%;
+} */
+
+.reset-btn{
+    background-color: #b3000f;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 95%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+.res-btn:hover {
+    background-color: #570000;
+  }
+  

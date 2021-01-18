@@ -1,3 +1,13 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: http://localhost/webpage/login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -135,7 +145,8 @@ header{
 
         <div class="user" style="height:250px;font-family:'Aclonica',Arial, Helvetica, sans-serif;">
             <img src="res/user3.png" style="width:106px">
-            <span>Welcome, <strong>Admin</strong></span><br>
+            <span>Welcome, <strong>    <?php echo htmlspecialchars($_SESSION["username"]); ?>
+</strong></span><br>
 
             <div class="userIcon">
                 <a href="#" class="icon"><i class="material-icons">person</i></a>
@@ -158,7 +169,7 @@ header{
             <a href="#More"target="_blank"><span>Mail</span></a>
             <a href="#More"target="_blank"><span>Inventory</span></a>
             <a href="#More"target="_blank"><span>Media</span></a>
-            <a href="#More"target="_blank"><span>Logout</span></a>
+            <a href="http://localhost/webpage/logout.php"target="_blank"><span>Logout</span></a>
 
         </div>
 
@@ -285,7 +296,7 @@ header{
                             $sqle =   "SELECT COUNT(*) AS `total`
                                         FROM $table_name
                                         WHERE full_name like '%$search%' AND prestatus = 'y';";
-                        } 
+                        }
                         else{
                             $sqle =    "SELECT COUNT(*) AS `total`
                             FROM $table_name
@@ -477,7 +488,7 @@ header{
      
             <?php echo '
                 <form action="http://localhost/webpage/players_search.php?query='.$search_type.'&where='.$table_name.'" method="post" class="searchForm">
-                    <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; ">
+                    <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; " required>
                     <input type="submit" value="Search"  id="search" style="width:10%; padding:8px;">
                 </form> 
                 ';
@@ -494,7 +505,7 @@ header{
                 <span><?php echo $pCount[0]?></span>
             </div>
             <table class="feedTable">
-                <tr class="feedTableRow style="width:100%;">
+                <tr class="feedTableRow">
                    <th>picture</th>
                    <th>ID</th>
                    <th>Name</th>
@@ -514,7 +525,7 @@ header{
 
                             // if($p == 10)
                             //     break;
-                            if ($table_name != 'applicants'){
+                            if ($table_name != 'applicants' && $table_name !='coach_view'){
                                 if($row['prestatus'] == 'n')
                                 $preText = "No";
 
@@ -538,6 +549,19 @@ header{
                                     <td><a href="http://webpage/player_profile.php?id=' . $row['id'] . '"><span>View Profile</span></a></td>
                                     <td>' . $p . '</td>
                                 </tr>';
+                            else if($table_name == 'coach_view'){
+                                echo '<tr class="feedTableRow">
+                                    <td><img src="res/user5.png" style="width:100px;"></td>
+                                    <td>' .$row['id']. '</td>
+                                    <td>'.$row['full_name'].'</td>
+                                    <td>'.$row['email'].'</td>
+                                    <td>'.$row['age'].'</td>
+                                    <td>'.$row['birthDate'].'</td>
+                                    <td>'.$row['regDate'].'</td>
+                                    <td>'.$row['pos'].'</td>
+                                    <td>'.$row['leaveDate'].'</td>
+                                 </tr>';
+                            }
                             else
                                 echo '<tr class="feedTableRow">
                     

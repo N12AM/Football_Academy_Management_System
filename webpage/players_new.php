@@ -1,4 +1,14 @@
 <?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: http://localhost/webpage/login.php");
+    exit;
+}
+?>
+<?php
                     include '..\database_connect.php';
                     $pCount = array(0,0,0,0); $i = 0;
 
@@ -141,30 +151,29 @@ header{font-family:'Aclonica',Arial, Helvetica, sans-serif;color:white;backgroun
 
         <div class="user" style="height:250px;font-family:'Aclonica',Arial, Helvetica, sans-serif;">
             <img src="res/user3.png" style="width:106px">
-            <span>Welcome, <strong>Admin</strong></span><br>
+            <span>Welcome, <strong>    <?php echo htmlspecialchars($_SESSION["username"]); ?>
+</strong></span><br>
 
             <div class="userIcon">
-                <a href="#" class="icon"><i class="material-icons">person</i></a>
-                <a href="#" class="icon"><i class="material-icons">email</i></a>
-                <a href="#" class="icon"><i class="material-icons">login</i></a>
+                <a href="http://localhost/webpage/user/profile.php" class="icon"><i class="material-icons">person</i></a>
+                <a href="http://localhost/webpage/mail/mail_main.php" class="icon"><i class="material-icons">email</i></a>
+                <a href="http://localhost/webpage/login/logout.php" class="icon"><i class="material-icons">login</i></a>
             </div>    
         </div>
         <div class="menuBar">
             <div class="menu" >
                 <a href="http://localhost/webpage/admin_dashboard.php"><span>Dashboard</span></a>
                 <a href="http://localhost/webpage/admin_side_player_page.php" style="color:#000;background-color:#999;"><span>Players</span></a>
-                <a href="#blog"target="_blank"><span>Coaches</span></a>
-                <a href="#videos"target="_blank"><span>Employees</span></a>
-                <a href="#More"target="_blank"><span>User</span></a>
-                <a href="#More"target="_blank"><span>Academic</span></a>
-                <a href="#More"target="_blank"><span>Performance</span></a>
-                <a href="#More"target="_blank"><span>Tournament</span></a>
-                <a href="#More"target="_blank"><span>Finance</span></a>
-                <a href="#More"target="_blank"><span>Message</span></a>
-                <a href="#More"target="_blank"><span>Mail</span></a>
-                <a href="#More"target="_blank"><span>Inventory</span></a>
-                <a href="#More"target="_blank"><span>Media</span></a>
-                <a href="http://localhost/webpage/logout.php"target="_blank"><span>Logout</span></a>
+                <a href="http://localhost/webpage/coach/coach_mainpage.php"><span>Coaches</span></a>
+                <a href="http://localhost/webpage/employee/employee_main.php"><span>Employees</span></a>
+                <a href="http://localhost/webpage/user/user_main.php"><span>User</span></a>
+                <a href="http://localhost/webpage/academic/academic_main.php"><span>Academic</span></a>
+                <a href="http://localhost/webpage/tournament/tournament_main.php"><span>Tournament</span></a>
+                <a href="http://localhost/webpage/finance/finance_main.php"><span>Finance</span></a>
+                <a href="http://localhost/webpage/mail/mail_main.php"><span>Mail</span></a>
+                <a href="http://localhost/webpage/inventory/inventory_main.php"><span>Inventory</span></a>
+                <a href="http://localhost/webpage/media/media_main.php"><span>Media</span></a>
+                <a href="http://localhost/webpage/logout.php"><span>Logout</span></a>
             </div>
         </div>  
     </div>
@@ -179,25 +188,25 @@ header{font-family:'Aclonica',Arial, Helvetica, sans-serif;color:white;backgroun
             <!-- this is the quick look up panel -->
             <div class="quickLookup">
 
-                <div class="quickView qv1" style="background-color:#f44336!important;">
+                <div class="quickView qv1">
                     <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">layers</span> </div>
                     <div class="viewPorts"><a href="http://localhost/webpage/players_total.php?page=0" class="viewPortLink"><span class="emp_text">Total</strong></span></a></div>
                     <div class="viewPortValue"> <span><?php echo $pCount[0];  ?> </span></div>
                 </div>
 
-                <div class="quickView qv2" style="background-color:#ff9800!important;">
+                <div class="quickView qv2">
                     <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">reduce_capacity</span></div>
                     <div class="viewPorts"><a href="http://localhost/webpage/players_active.php?page=0" class="viewPortLink"><span class="emp_text">Active</strong></span></div></a>   
                     <div class="viewPortValue"> <span><?php echo $pCount[1];?></span></div>
                 </div>
 
-                <div class="quickView qv3" style="background-color:#2196f3!important;">
+                <div class="quickView qv3">
                     <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">assignment_late</span> </div>
                     <div class="viewPorts"><a href="http://localhost/webpage/players_pending.php?page=0"class="viewPortLink"><span class="emp_text">Pending</span></div> </a>
                     <div class="viewPortValue"> <span><?php echo $pCount[2]; ?> </span></div>
                 </div>
 
-                <div class="quickView qv4" style="background-color:#009680!important;">
+                <div class="quickView qv4">
                     <div class="viewIcons"><span class="material-icons" style="font-size:50px;padding-top: 10px;">new_releases</span></div> 
                     <div class="viewPorts"><a href="http://localhost/webpage/players_new.php?page=0" class="viewPortLink"><span class="emp_text">New Admitted</span></a></div>
                     <div class="viewPortValue"> <span><?php echo $pCount[3]; ?> </span> </div>
@@ -219,7 +228,7 @@ header{font-family:'Aclonica',Arial, Helvetica, sans-serif;color:white;backgroun
                 </div>
                 <div class="AddPlayer searchPlayer" >
                     <form action="http://localhost/webpage/players_search.php?query=new&where=playerbasicinfo" method="post" class="searchForm">
-                        <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; ">
+                        <input type="text" placeholder="search player here" name="search" style="width:40%; padding:8px; margin-right:6%; " required>
                         <input type="submit" value="Search"  id="search" style="width:10%; padding:8px;">
                     </form>
                 </div>
@@ -230,7 +239,7 @@ header{font-family:'Aclonica',Arial, Helvetica, sans-serif;color:white;backgroun
                     <span><?php echo $pCount[3]?></span>
                 </div>
                 <table class="feedTable">
-                    <tr class="feedTableRow style="width:100%;">
+                    <tr class="feedTableRow">
                     <th>picture</th>
                     <th>ID</th>
                     <th>Name</th>

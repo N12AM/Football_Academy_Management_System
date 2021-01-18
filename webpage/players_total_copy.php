@@ -1,3 +1,13 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: http://localhost/webpage/login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -135,7 +145,8 @@ header{
 
         <div class="user" style="height:250px;font-family:'Aclonica',Arial, Helvetica, sans-serif;">
             <img src="res/user3.png" style="width:106px">
-            <span>Welcome, <strong>Admin</strong></span><br>
+            <span>Welcome, <strong>    <?php echo htmlspecialchars($_SESSION["username"]); ?>
+</strong></span><br>
 
             <div class="userIcon">
                 <a href="#" class="icon"><i class="material-icons">person</i></a>
@@ -158,7 +169,7 @@ header{
             <a href="#More"target="_blank"><span>Mail</span></a>
             <a href="#More"target="_blank"><span>Inventory</span></a>
             <a href="#More"target="_blank"><span>Media</span></a>
-            <a href="#More"target="_blank"><span>Logout</span></a>
+            <a href="http://localhost/webpage/logout.php"target="_blank"><span>Logout</span></a>
 
         </div>
 
@@ -324,7 +335,7 @@ header{
 
 
 
-            <div class="quickView qv1" style="background-color:#f44336!important;">
+            <div class="quickView qv1">
                 
                 
                 <div class="viewIcons">
@@ -343,7 +354,7 @@ header{
                                             </span>
                 </div>
             </div>
-            <div class="quickView qv2" style="background-color:#ff9800!important;">
+            <div class="quickView qv2">
                 <div class="viewIcons">
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">reduce_capacity</span>
 
@@ -362,7 +373,7 @@ header{
                 </div>
 
             </div>
-            <div class="quickView qv3" style="background-color:#2196f3!important;">
+            <div class="quickView qv3">
                 <div class="viewIcons">
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">assignment_late</span>
                 </div>
@@ -378,7 +389,7 @@ header{
                 </div>
 
             </div>
-            <div class="quickView qv4" style="background-color:#009680!important;">
+            <div class="quickView qv4">
                 <div class="viewIcons">
                     <span class="material-icons" style="font-size:50px;padding-top: 10px;">new_releases</span>
                 </div>
@@ -444,7 +455,7 @@ header{
                 <span><?php echo $pCount[0]?></span>
             </div>
             <table class="feedTable">
-                <tr class="feedTableRow style="width:100%;">
+                <tr class="feedTableRow">
                    <th>picture</th>
                    <th>ID</th>
                    <th>Name</th>

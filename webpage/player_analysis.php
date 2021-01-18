@@ -1,4 +1,16 @@
 <?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: http://localhost/webpage/login.php");
+    exit;
+}
+?>
+
+
+<?php
     include '..\database_connect.php';
 
 
@@ -228,7 +240,9 @@ header{
 
         <div class="user" style="height:250px;font-family:'Aclonica',Arial, Helvetica, sans-serif;">
             <img src="res/user3.png" style="width:106px">
-            <span>Welcome, <strong>Admin</strong></span><br>
+            <span>Welcome, <strong>    <?php echo htmlspecialchars($_SESSION["username"]); ?>
+
+</strong></span><br>
 
             <div class="userIcon">
                 <a href="#" class="icon"><i class="material-icons">person</i></a>
@@ -251,7 +265,7 @@ header{
             <a href="#More"target="_blank"><span>Mail</span></a>
             <a href="#More"target="_blank"><span>Inventory</span></a>
             <a href="#More"target="_blank"><span>Media</span></a>
-            <a href="#More"target="_blank"><span>Logout</span></a>
+            <a href="http://localhost/webpage/logout.php"target="_blank"><span>Logout</span></a>
 
         </div>
 

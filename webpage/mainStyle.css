@@ -88,6 +88,30 @@
     font-size: 28px;
     color:white;
 }
+.qv1{
+    background-color:#f44336!important;
+}
+.qv1:hover{
+    background-color:#9c0a00!important;
+}
+.qv2{
+    background-color:#ff9800!important;
+}
+.qv2:hover{
+    background-color:#af6900!important;
+}
+.qv3{
+    background-color:#2196f3!important;
+}
+.qv3:hover{
+    background-color:#1363a5!important;
+}
+.qv4{
+    background-color:#009680!important;
+}
+.qv4:hover{
+    background-color:#004d42!important;
+}
 /*---------------------- below controls quick view 4 panel */
 .viewPorts{
     text-align:left;
