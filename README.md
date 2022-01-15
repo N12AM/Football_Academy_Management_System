@@ -1,1 +1,1 @@
-# CSE311_Project_UI
+# Football Academy Management System
